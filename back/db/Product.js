@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize")
 
 module.exports = function (sequelize) {
-    return sequelize.define('user', {
+    return sequelize.define('product', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -9,21 +9,25 @@ module.exports = function (sequelize) {
             allowNull: false,
             unique: true
         },
-        login: {
+        title: {
             type: Sequelize.STRING,
             allowNull: false,
             unique: true
         },
-        hash: {
+        description: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        salt: {
-            type: Sequelize.STRING,
+        img: {
+            type: Sequelize.TEXT,
             allowNull: false
         },
-        roleId: {
+        typeId: {
             type: Sequelize.INTEGER,
+            allowNull: false,
+        },
+        price: {
+            type: Sequelize.DOUBLE,
             allowNull: false,
         }
     })
