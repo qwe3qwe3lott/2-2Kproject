@@ -1,9 +1,22 @@
 const user = require('../db').user;
 const role = require('../db').role;
-
 const getAllUsers = async function (req, res) {
     user.findAll()
         .then(users => {
+            res.status(200).json(users)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: err
+            })
+        })
+}
+
+const getUsersList = async function (req, res) {
+    user.findAll( { attributes: ['login'], include: { model: role, attributes: ['role'] }, raw: true } )
+        .then(users => {
+            users = JSON.parse(JSON.stringify(users).split('"role.role":').join('"role":'));
             res.status(200).json(users)
         })
         .catch(err => {
@@ -82,5 +95,6 @@ const existRole = role_id =>
 module.exports = {
     getAllUsers,
     addUser,
-    deleteUser
+    deleteUser,
+    getUsersList
 }

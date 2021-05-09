@@ -16,7 +16,9 @@ const Product = require('./Product')(sequelize)
 const Order = require('./Order')(sequelize)
 
 User.belongsTo(Role, { foreignKey: 'roleId' })
+Role.hasMany(User, { foreignKey: 'roleId' })
 Product.belongsTo(Product_type, { foreignKey: 'typeId' })
+Product_type.hasMany(Product, { foreignKey: 'typeId' })
 Product.belongsToMany(Order, { through: 'order_products' });
 Order.belongsToMany(Product, { through: 'order_products' });
 

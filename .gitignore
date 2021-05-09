@@ -1,2 +1,2 @@
-back/node_modules
-back/.idea
+*/node_modules
+*/.idea
