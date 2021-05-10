@@ -1,8 +1,10 @@
 <template>
   <div>
-    <button @click="$router.push({ name: 'main' })">main</button>
-    <button @click="$router.push({ name: 'admin' })">admin</button>
-    <button @click="$router.push({ name: 'moder' })">moder</button>
+    <header class="header">
+      <button class="header__button header__home-button" @click="$router.push({ name: 'main' })">Салон красоты "Наталья"</button>
+      <button class="header__button" @click="$router.push({ name: 'moder' })">для сотрудников</button>
+      <button class="header__button" @click="$router.push({ name: 'admin' })">для администрации</button>
+    </header>
     <router-view/>
   </div>
 </template>

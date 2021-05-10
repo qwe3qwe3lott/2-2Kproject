@@ -39,7 +39,6 @@ export default new Vuex.Store({
             let data
             try {
                 data = (await api.admin.getUsersList()).data
-                console.log(data)
             } catch (error) {
                 console.log(error.response.data)
                 data = await loadAllUsers()

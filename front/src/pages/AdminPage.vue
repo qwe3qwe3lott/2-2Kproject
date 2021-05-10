@@ -1,18 +1,23 @@
 <template>
-  <div>
-    <h1>Администраторская</h1>
-    <div v-for="(item, index) in getUsers" :key="index">
-      <h2>Пользователь № {{index + 1}}</h2>
-      <p>Логин: {{item.login}}</p>
-      <p>Роль: {{item.role}}</p>
+  <section class="admin">
+    <h1 class="admin__title">Администраторская</h1>
+    <h2 class="admin__subtitle">Учётные записи</h2>
+    <div class="admin__users-container">
+      <user-card v-for="(user, index) in getUsers" :key="index" :index="index" :user="user"/>
     </div>
-  </div>
+    <h2 class="admin__subtitle">Добавить учётную запись</h2>
+    <form>
+
+    </form>
+  </section>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import UserCard from "../components/UserCard";
 export default {
   name: "AdminPage",
+  components: {UserCard},
   methods: {
     ...mapActions(['loadAllUsers']),
     ...mapGetters(['getAllUsers'])

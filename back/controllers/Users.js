@@ -14,7 +14,7 @@ const getAllUsers = async function (req, res) {
 }
 
 const getUsersList = async function (req, res) {
-    user.findAll( { attributes: ['login'], include: { model: role, attributes: ['role'] }, raw: true } )
+    user.findAll( { attributes: ['id', 'login'], include: { model: role, attributes: ['role'] }, raw: true } )
         .then(users => {
             users = JSON.parse(JSON.stringify(users).split('"role.role":').join('"role":'));
             res.status(200).json(users)
