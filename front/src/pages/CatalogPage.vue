@@ -1,11 +1,11 @@
 <template>
   <section>
-    О нас
+    Каталог
   </section>
 </template>
 
 <script>
 export default {
-  name: "MainPage"
+  name: "CatalogPage"
 }
 </script>

@@ -13,6 +13,19 @@ const getAllUsers = async function (req, res) {
         })
 }
 
+const getAllRoles = async function (req, res) {
+    role.findAll()
+        .then(roles => {
+            res.status(200).json(roles)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: err
+            })
+        })
+}
+
 const getUsersList = async function (req, res) {
     user.findAll( { attributes: ['id', 'login'], include: { model: role, attributes: ['role'] }, raw: true } )
         .then(users => {
@@ -30,17 +43,17 @@ const getUsersList = async function (req, res) {
 const addUser = async function (req, res) {
     let data = req.body;
     if (data.login == null)
-        res.status(500).end('Не указан логин');
+        res.status(422).end('Не указан логин');
     else if (data.hash == null)
-        res.status(500).end('Не указан хэш пароля');
+        res.status(422).end('Не указан хэш пароля');
     if (data.salt == null)
-        res.status(500).end('Не указана соль');
+        res.status(422).end('Не указана соль');
     if (data.roleId == null)
-        res.status(500).end('Не указан id роли');
+        res.status(422).end('Не указан id роли');
     else if (await existLogin(data.login.toString()))
-        res.status(500).end('Логин уже занят');
+        res.status(422).end('Логин уже занят');
     else if (!await existRole(data.roleId))
-        res.status(500).end('Не существует роли с таким id');
+        res.status(422).end('Не существует роли с таким id');
     else {
         user.create({
             login: data.login,
@@ -62,8 +75,9 @@ const addUser = async function (req, res) {
 const deleteUser = async function (req, res) {
     let data = req.body;
     if (data.id == null)
-        res.status(500).end('Не указан id');
+        res.status(422).end('Не указан id');
     else {
+        console.log(123)
         user.destroy({
             where: {
                 id: data.id
@@ -96,5 +110,6 @@ module.exports = {
     getAllUsers,
     addUser,
     deleteUser,
-    getUsersList
+    getUsersList,
+    getAllRoles
 }

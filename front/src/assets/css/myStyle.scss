@@ -1,0 +1,215 @@
+@import "./variables.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-size: 1.2em;
+  color: $text-color;
+  background: $back-color;
+  font-family: "Anonymous_Pro", serif;
+}
+div::-webkit-scrollbar {
+  width: 1em;
+  border-radius: 5px;
+}
+div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+div::-webkit-scrollbar-thumb {
+  background-color: $object-color;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+}
+button {
+  font-family: "Anonymous_Pro", serif;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  &:focus {
+    outline: 0;
+  }
+}
+input {
+  font-size: 1.2em;
+  &:focus {
+    outline: 0;
+  }
+  &[type=submit] {
+    cursor: pointer;
+  }
+}
+select {
+  font-size: 1.2em;
+}
+
+@media only screen and (max-width: 1000px) {
+  body {
+    font-size: 0.8em;
+  }
+  button {
+    font-size: 0.8em;
+  }
+  input {
+    font-size: 0.8em;
+  }
+  select {
+    font-size: 0.8em;
+  }
+}
+
+.header {
+  width: 100%;
+  padding: 15px;
+  background: $primary-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  &__button {
+    margin: 5px;
+    font-style: italic;
+    padding: 5px;
+    color: $primary-text-color;
+    &:hover {
+      color: $primary-text-color-hover
+    }
+  }
+  &__home-button {
+    margin-right: auto;
+    font-size: 2.5em;
+    text-decoration-line: none;
+  }
+}
+
+.admin {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  &__title {
+    font-size: 2em;
+    width: 100%;
+    background: $second-back-color;
+    padding: 10px 30px;
+  }
+  &__users {
+    width: 100%;
+    padding: 10px;
+    margin: 0 20px;
+    overflow: hidden;
+  }
+  &__subtitle {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  &__users-container {
+    overflow-x: scroll;
+    background: $second-back-color;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  &__reg-form {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin: 0 20px;
+  }
+}
+
+.user-card {
+  padding: 10px;
+  margin: 10px;
+  background: $object-color;
+  border: $border-color solid 1px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  min-width: 275px;
+  max-width: 275px;
+  &__title {
+    font-weight: bold;
+  }
+  &__prop {
+    text-wrap: normal;
+    word-break: break-all;
+  }
+  &__delete-button {
+    height: 20px;
+    width: 20px;
+    align-self: flex-end;
+    cursor: pointer;
+    background: url("../svg/cross.svg");
+  }
+}
+
+.reg-form {
+  background: $second-back-color;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  &__label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  &__field {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+  }
+  &__drop-down {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+  }
+  &__submit {
+    width: fit-content;
+    align-self: center;
+    padding: 5px;
+    border-radius: 5px;
+    background: $object-color;
+    border: $border-color solid 1px;
+    margin-top: 20px;
+  }
+  &__report {
+    align-self: center;
+    text-wrap: normal;
+    word-break: break-all;
+    margin-top: 10px;
+  }
+}
+
+.main-nav {
+  width: 100%;
+  padding: 15px;
+  background: $second-back-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  &__button {
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    background: none;
+    text-transform: uppercase;
+    &_selected {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,11 +1,11 @@
 <template>
-  <section>
-    О нас
-  </section>
+  <div>
+    Корзина
+  </div>
 </template>
 
 <script>
 export default {
-  name: "MainPage"
+  name: "BasketLayout"
 }
 </script>

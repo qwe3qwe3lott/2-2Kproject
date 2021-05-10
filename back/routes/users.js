@@ -6,8 +6,10 @@ router.get('/all', controller.getAllUsers);
 
 router.get('/list', controller.getUsersList);
 
+router.get('/allRoles', controller.getAllRoles);
+
 router.post('/add', controller.addUser);
 
-router.delete('/delete', controller.deleteUser);
+router.post('/delete', controller.deleteUser);
 
 module.exports = router;

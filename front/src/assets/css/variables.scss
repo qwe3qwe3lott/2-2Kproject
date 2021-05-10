@@ -1,0 +1,29 @@
+$primary-color: #D46678;
+$primary-text-color: white;
+$primary-text-color-hover: pink;
+$back-color: #fff2ea;
+$second-back-color: #ffe5b4;
+$border-color: slategrey;
+$text-color: dimgrey;
+$object-color: gainsboro;
+
+@font-face{
+  font-family: "Anonymous_Pro";
+  src: url("../fonts/Anonymous_Pro.ttf");
+}
+@font-face{
+  font-family: "Anonymous_Pro";
+  src: url("../fonts/Anonymous_Pro_B.ttf");
+  font-weight: bold;
+}
+@font-face{
+  font-family: "Anonymous_Pro";
+  src: url("../fonts/Anonymous_Pro_BI.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face{
+  font-family: "Anonymous_Pro";
+  src: url("../fonts/Anonymous_Pro_I.ttf");
+  font-style: italic;
+}

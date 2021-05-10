@@ -4,7 +4,10 @@ import MainPage from "../pages/MainPage";
 import ModerPage from "../pages/ModerPage";
 import AuthPage from "../pages/AuthPage"
 import Error404Page from "../pages/Error404Page"
-import HeaderLayout from "@/pages/HeaderLayout";
+import HeaderLayout from "../pages/HeaderLayout";
+import MainLayout from "../pages/MainLayout";
+import CatalogPage from "../pages/CatalogPage";
+import BasketLayout from "../pages/BasketLayout";
 
 export default new VueRouter({
     mode: 'history',
@@ -16,8 +19,25 @@ export default new VueRouter({
             children: [
                 {
                     path: '/',
-                    name: 'main',
-                    component: MainPage
+                    name: 'mainLayout',
+                    component: MainLayout,
+                    children: [
+                        {
+                            path: '/',
+                            name: 'main',
+                            component: MainPage
+                        },
+                        {
+                            path: '/catalog',
+                            name: 'catalog',
+                            component: CatalogPage
+                        },
+                        {
+                            path: '/basket',
+                            name: 'basket',
+                            component: BasketLayout
+                        }
+                    ]
                 },
                 {
                     path: '/admin',

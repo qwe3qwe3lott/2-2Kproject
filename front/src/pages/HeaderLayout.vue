@@ -1,9 +1,11 @@
 <template>
   <div>
     <header class="header">
-      <button class="header__button header__home-button" @click="$router.push({ name: 'main' })">Салон красоты "Наталья"</button>
-      <button class="header__button" @click="$router.push({ name: 'moder' })">для сотрудников</button>
-      <button class="header__button" @click="$router.push({ name: 'admin' })">для администрации</button>
+      <button class="header__button header__home-button" @click="$router.push({ name: 'main' })">Салон красоты "Джесси"</button>
+      <nav class="header__nav">
+        <button class="header__button" @click="$router.push({ name: 'moder' })">для сотрудников</button>
+        <button class="header__button" @click="$router.push({ name: 'admin' })">для администрации</button>
+      </nav>
     </header>
     <router-view/>
   </div>
@@ -14,7 +16,3 @@ export default {
   name: "HeaderLayout"
 }
 </script>
-
-<style scoped>
-
-</style>
