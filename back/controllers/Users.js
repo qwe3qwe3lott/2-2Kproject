@@ -7,9 +7,7 @@ const getAllUsers = async function (req, res) {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({
-                message: err
-            })
+            res.status(500).json({ message: 'Неизвестная ошибка' })
         })
 }
 
@@ -20,9 +18,7 @@ const getAllRoles = async function (req, res) {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({
-                message: err
-            })
+            res.status(500).json({ message: 'Неизвестная ошибка' })
         })
 }
 
@@ -34,26 +30,30 @@ const getUsersList = async function (req, res) {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({
-                message: err
-            })
+            res.status(500).json({ message: 'Неизвестная ошибка' })
         })
 }
 
 const addUser = async function (req, res) {
     let data = req.body;
     if (data.login == null)
-        res.status(422).end('Не указан логин');
+        res.status(422).json({ message: 'Не указан логин' });
     else if (data.hash == null)
-        res.status(422).end('Не указан хэш пароля');
+        res.status(422).json({ message: 'Не указан хэш пароля' });
     if (data.salt == null)
-        res.status(422).end('Не указана соль');
+        res.status(422).json({ message: 'Не указана соль' });
     if (data.roleId == null)
-        res.status(422).end('Не указан id роли');
-    else if (await existLogin(data.login.toString()))
-        res.status(422).end('Логин уже занят');
-    else if (!await existRole(data.roleId))
-        res.status(422).end('Не существует роли с таким id');
+        res.status(422).json({ message: 'Не указан id роли' });
+    else if (await existLogin(data.login.toString()).catch(err => {
+        console.log(err);
+        res.status(500).json({ message: 'Неизвестная ошибка' });
+    }))
+        res.status(422).json({ message: 'Логин уже занят' });
+    else if (!await existRole(data.roleId).catch(err => {
+        console.log(err);
+        res.status(500).json({ message: 'Неизвестная ошибка' });
+    }))
+        res.status(422).json({ message: 'Не существует роли с таким id' });
     else {
         user.create({
             login: data.login,
@@ -62,12 +62,11 @@ const addUser = async function (req, res) {
             roleId: data.roleId
         })
             .then(result => {
-                console.log('Пользователь добавлен');
-                res.status(200).end('Пользователь добавлен');
+                res.status(200).json({ message: 'Пользователь добавлен' });
             })
             .catch(err => {
                 console.log(err);
-                res.status(500).end('error');
+                res.status(500).json({ message: 'Неизвестная ошибка' });
             })
     }
 }
@@ -75,21 +74,16 @@ const addUser = async function (req, res) {
 const deleteUser = async function (req, res) {
     let data = req.body;
     if (data.id == null)
-        res.status(422).end('Не указан id');
+        res.status(422).json({ message: 'Не указан id' });
     else {
-        console.log(123)
-        user.destroy({
-            where: {
-                id: data.id
-            }
-        })
+        user.destroy({ where: { id: data.id } })
             .then(result => {
                 console.log('Пользователь удалён');
-                res.status(200).end('Пользователь удалён');
+                res.status(200).json({ message: 'Пользователь удалён' });
             })
             .catch(err => {
                 console.log(err);
-                res.status(500).end('error');
+                res.status(500).json({ message: 'Неизвестная ошибка' });
             })
     }
 }
