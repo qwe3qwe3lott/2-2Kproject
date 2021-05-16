@@ -1,15 +1,15 @@
 <template>
   <section class="catalog">
-    <CatalogSegment v-for="(type, index) in getAllProductTypes" :key="index" v-bind:cards="getProductCards(type)" :title="type" :edit="false"/>
+    <CatalogSegment v-for="(type, index) in getAllProductTypes" :key="index" v-bind:cards="getProductCards(type)" :title="type" :edit="true"/>
   </section>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import CatalogSegment from "@/components/CatalogSegment";
-import {mapGetters} from "vuex";
 
 export default {
-  name: "CatalogPage",
+  name: "CatalogEditPage",
   components: {CatalogSegment},
   computed: {
     ...mapGetters(['getAllProductTypes', 'getProductCards'])

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '../api'
+'use strict';
 
 Vue.use(Vuex)
 
@@ -8,6 +9,35 @@ export default new Vuex.Store({
     state: {
         users: [],
         roles: [],
+        products: [
+            {
+                id: '1',
+                title: 'Услуга',
+                description: 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem',
+                img: 'https://st.depositphotos.com/1037262/2659/i/950/depositphotos_26594615-stock-photo-change-of-scene.jpg',
+                duration: '20 мин',
+                price: '100 руб.',
+                type: 'massage'
+            },
+            {
+                id: '2',
+                title: 'Услуга',
+                description: 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem',
+                img: 'https://st.depositphotos.com/1037262/2659/i/950/depositphotos_26594615-stock-photo-change-of-scene.jpg',
+                duration: '20 мин',
+                price: '100 руб.',
+                type: 'hair'
+            },
+            {
+                id: '3',
+                title: 'Услуга',
+                description: 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem',
+                img: 'https://st.depositphotos.com/1037262/2659/i/950/depositphotos_26594615-stock-photo-change-of-scene.jpg',
+                duration: '20 мин',
+                price: '100 руб.',
+                type: 'massage'
+            }
+        ],
         userAddReport: "",
         backEnd: true
     },
@@ -23,6 +53,15 @@ export default new Vuex.Store({
         },
         getAllRoles(state) {
             return state.roles
+        },
+        getAllProductTypes(state) {
+            return state.products.map(item => item.type)
+                .filter((value, index, self) => self.indexOf(value) === index)
+        },
+        getProductCards: (state) => (type) => {
+            return state.products.filter(function (el) {
+                return el.type === type;
+            })
         }
     },
     mutations: {
@@ -91,6 +130,18 @@ export default new Vuex.Store({
                 if (status !== 422) commit('SET_BACKEND', false)
             }
             return status
-        }
+        },
+        async deleteProduct({ commit }, payload) {
+            let status
+            try {
+                let res = await api.moder.deleteProduct(payload)
+                status = res.status
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                status = error.response.status
+                if (status !== 422) commit('SET_BACKEND', false)
+            }
+            return status
+        },
     }
 })

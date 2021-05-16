@@ -1,15 +1,11 @@
 <template>
   <div>
-    moder
+    orders
   </div>
 </template>
 
 <script>
 export default {
-  name: "ModerPage"
+  name: "OrdersPage"
 }
 </script>
-
-<style scoped>
-
-</style>

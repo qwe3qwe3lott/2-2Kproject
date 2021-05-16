@@ -213,3 +213,97 @@ select {
     }
   }
 }
+
+.moder-nav {
+  width: 100%;
+  padding: 15px;
+  background: $second-back-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  &__button {
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    background: none;
+    text-transform: uppercase;
+    &_selected {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}
+
+.catalog {
+  padding: 50px;
+  &__segment {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  &__segment-title {
+    text-align: center;
+    font-size: 2em;
+    width: 100%;
+  }
+}
+
+.product-card {
+  margin: 15px;
+  background: $object-color;
+  border-radius: 15px;
+  width: 350px;
+  &__img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  &__info {
+    padding: 10px;
+  }
+  &__title {
+    margin-bottom: 10px;
+  }
+  &__prop {
+    margin-bottom: 5px;
+  }
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 15px;
+  }
+  &__button-decrease {
+    color: $primary-color;
+    background: $second-back-color;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    margin: 0 5px;
+  }
+  &__count {
+    margin: 0 5px;
+  }
+  &__button-increase {
+    color: $primary-color;
+    background: $second-back-color;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 5px;
+  }
+  &__button {
+    border: $border-color solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 5px;
+  }
+}

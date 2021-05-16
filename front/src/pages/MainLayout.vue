@@ -14,8 +14,6 @@ export default {
   name: "MainLayout",
   methods: {
     check(name) {
-      console.log(name)
-      console.log(this.$router.currentRoute.name)
       return name === this.$router.currentRoute.name
     }
   }
