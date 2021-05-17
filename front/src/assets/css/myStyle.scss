@@ -51,15 +51,6 @@ select {
   body {
     font-size: 0.8em;
   }
-  button {
-    font-size: 0.8em;
-  }
-  input {
-    font-size: 0.8em;
-  }
-  select {
-    font-size: 0.8em;
-  }
 }
 
 .header {
@@ -95,11 +86,19 @@ select {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  &__title {
-    font-size: 2em;
+  &__panel {
     width: 100%;
     background: $second-back-color;
     padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &__title {
+    font-size: 2em;
+  }
+  &__exit-button {
+
   }
   &__users {
     width: 100%;
@@ -195,7 +194,7 @@ select {
 
 .main-nav {
   width: 100%;
-  padding: 15px;
+  padding: 5px;
   background: $second-back-color;
   display: flex;
   flex-direction: row;
@@ -204,7 +203,6 @@ select {
   &__button {
     border: none;
     padding: 5px;
-    margin: 5px;
     background: none;
     text-transform: uppercase;
     &_selected {
@@ -214,19 +212,30 @@ select {
   }
 }
 
-.moder-nav {
+.moder {
   width: 100%;
-  padding: 15px;
   background: $second-back-color;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  &__button {
-    border: none;
+  &__panel {
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &__title {
+    font-size: 2em;
+  }
+  &__exit-button {
+
+  }
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
     padding: 5px;
-    margin: 5px;
-    background: none;
+  }
+  &__nav-button {
+    padding: 5px;
     text-transform: uppercase;
     &_selected {
       font-weight: bold;
@@ -305,5 +314,50 @@ select {
     border-radius: 5px;
     padding: 5px;
     margin: 0 5px;
+  }
+}
+
+.auth {
+  display: grid;
+  place-items: center;
+  &__form {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+  }
+}
+
+.auth-form {
+  background: $second-back-color;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  &__label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  &__field {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+  }
+  &__submit {
+    width: fit-content;
+    align-self: center;
+    padding: 5px;
+    border-radius: 5px;
+    background: $object-color;
+    border: $border-color solid 1px;
+    margin-top: 20px;
+  }
+  &__report {
+    align-self: center;
+    text-wrap: normal;
+    word-break: break-all;
+    margin-top: 10px;
   }
 }

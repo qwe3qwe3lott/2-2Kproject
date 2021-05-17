@@ -1,11 +1,19 @@
 <template>
   <section>
-    О нас
+    {{ f }}
   </section>
 </template>
 
 <script>
 export default {
-  name: "MainPage"
+  name: "MainPage",
+  data() {
+    return {
+    f: ''
+    }
+  },
+  mounted() {
+    this.f = localStorage.getItem('token')
+  }
 }
 </script>

@@ -85,6 +85,7 @@ export default new Vuex.Store({
                 data = (await api.admin.getUsersList()).data
                 commit('SET_BACKEND', true)
             } catch (error) {
+                console.log(error)
                 commit('SET_BACKEND', false)
             } finally {
                 commit('SET_USERS', data)

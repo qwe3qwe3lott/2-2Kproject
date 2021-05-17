@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-cookies": "^1.7.4",
     "vue-cryptojs": "^2.1.5",
     "vue-router": "^3.5.1",
     "vue-svg-loader": "^0.12.0-alpha.1",
@@ -23,9 +24,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.0.5",
+    "vue-template-compiler": "^2.6.11",
     "webpack": "^4.46.0"
   },
   "eslintConfig": {

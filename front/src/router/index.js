@@ -10,6 +10,7 @@ import CatalogPage from "../pages/CatalogPage";
 import BasketLayout from "../pages/BasketLayout";
 import CatalogEditPage from "@/pages/CatalogEditPage";
 import OrdersPage from "@/pages/OrdersPage";
+import api from '../api'
 
 export default new VueRouter({
     mode: 'history',
@@ -44,12 +45,38 @@ export default new VueRouter({
                 {
                     path: '/admin',
                     name: 'admin',
-                    component: AdminPage
+                    component: AdminPage,
+                    beforeEnter: (to, from, next) => {
+                        console.log(to)
+                        console.log(from)
+                        api.admin.checkAccess()
+                            .then(res => {
+                                if (res.data.answer) next()
+                                else next({name: 'auth'})
+                            })
+                            .catch(err => {
+                                console.log(err)
+                                next({name: 'auth'})
+                            })
+                    }
                 },
                 {
                     path: '/moder',
                     name: 'moderLayout',
                     component: ModerLayout,
+                    beforeEnter: (to, from, next) => {
+                        console.log(to)
+                        console.log(from)
+                        api.moder.checkAccess()
+                            .then(res => {
+                                if (res.data.answer) next()
+                                else next({name: 'auth'})
+                            })
+                            .catch(err => {
+                                console.log(err)
+                                next({name: 'auth'})
+                            })
+                    },
                     children: [
                         {
                             path: 'catalog',

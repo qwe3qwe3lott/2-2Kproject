@@ -1,16 +1,20 @@
+import { configs } from './index'
 export default function (instance) {
     return {
         getUsersList() {
-            return instance.get('users/list')
+            return instance.get('users/list', configs())
         },
         addUser(payload) {
-            return instance.post('users/add', payload)
+            return instance.post('users/add', payload, configs())
         },
         deleteUser(payload) {
-            return instance.post('users/delete', payload)
+            return instance.post('users/delete', payload, configs())
         },
         getAllRoles() {
-            return instance.get('users/allRoles')
+            return instance.get('users/allRoles', configs())
+        },
+        checkAccess() {
+            return instance.get('auth/checkAdmin', configs())
         }
     }
 }
