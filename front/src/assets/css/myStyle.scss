@@ -250,6 +250,7 @@ select {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
   }
   &__segment-title {
     text-align: center;

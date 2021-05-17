@@ -23,10 +23,10 @@ export default {
   },
   methods: {
     async submit() {
-      api.auth.getToken()
+      api.auth.getToken({ login: this.login, hash: this.$CryptoJS.SHA256(this.password).toString(this.$CryptoJS.enc.Hex)})
         .then(res => {
           localStorage.setItem('token', res.data.token)
-          this.$router.push({ name: 'main' })
+          this.$router.push({ name: res.data.route })
         })
         .catch(err => {
           console.log(err)

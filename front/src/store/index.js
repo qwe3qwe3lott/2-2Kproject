@@ -9,35 +9,7 @@ export default new Vuex.Store({
     state: {
         users: [],
         roles: [],
-        products: [
-            {
-                id: '1',
-                title: 'Услуга',
-                description: 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem',
-                img: 'https://st.depositphotos.com/1037262/2659/i/950/depositphotos_26594615-stock-photo-change-of-scene.jpg',
-                duration: '20 мин',
-                price: '100 руб.',
-                type: 'massage'
-            },
-            {
-                id: '2',
-                title: 'Услуга',
-                description: 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem',
-                img: 'https://st.depositphotos.com/1037262/2659/i/950/depositphotos_26594615-stock-photo-change-of-scene.jpg',
-                duration: '20 мин',
-                price: '100 руб.',
-                type: 'hair'
-            },
-            {
-                id: '3',
-                title: 'Услуга',
-                description: 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem',
-                img: 'https://st.depositphotos.com/1037262/2659/i/950/depositphotos_26594615-stock-photo-change-of-scene.jpg',
-                duration: '20 мин',
-                price: '100 руб.',
-                type: 'massage'
-            }
-        ],
+        products: [],
         userAddReport: "",
         backEnd: true
     },
@@ -76,6 +48,9 @@ export default new Vuex.Store({
         },
         SET_ROLES(state, payload) {
             state.roles = payload
+        },
+        SET_PRODUCTS(state, payload) {
+            state.products = payload
         }
     },
     actions: {
@@ -118,6 +93,19 @@ export default new Vuex.Store({
             }
             finally {
                 commit('SET_ROLES', data)
+            }
+        },
+        async loadAllProducts({ commit }) {
+            let data
+            try {
+                data = (await api.user.getAllProducts()).data
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                commit('SET_BACKEND', false)
+                data = []
+            }
+            finally {
+                commit('SET_PRODUCTS', data)
             }
         },
         async deleteUser({ commit }, payload) {

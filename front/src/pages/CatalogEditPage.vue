@@ -5,14 +5,20 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import CatalogSegment from "@/components/CatalogSegment";
 
 export default {
   name: "CatalogEditPage",
-  components: {CatalogSegment},
+  components: { CatalogSegment },
   computed: {
     ...mapGetters(['getAllProductTypes', 'getProductCards'])
+  },
+  methods: {
+    ...mapActions(['loadAllProducts'])
+  },
+  created() {
+    this.loadAllProducts()
   }
 }
 </script>

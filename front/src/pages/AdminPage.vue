@@ -2,7 +2,7 @@
   <section class="admin">
     <article class="admin__panel">
       <h1 class="admin__title">Администраторная<span class="admin__title-backend" v-if="!getBackEnd"> (backend не отвечает)</span></h1>
-      <button class="admin__exit-button">Выйти</button>
+      <button class="admin__exit-button" @click="logout">Выйти</button>
     </article>
     <article class="admin__users">
       <h2 class="admin__subtitle">Учётные записи сотрудников</h2>
@@ -35,6 +35,10 @@ export default {
   name: "AdminPage",
   components: {UserCard},
   methods: {
+    logout() {
+      localStorage.removeItem('token')
+      this.$router.push({ name: 'main' })
+    },
     ...mapActions(['loadUsersList', 'sendUser', 'loadAllRoles']),
     submit() {
       let passHash = this.$CryptoJS.SHA256(this.password).toString(this.$CryptoJS.enc.Hex)

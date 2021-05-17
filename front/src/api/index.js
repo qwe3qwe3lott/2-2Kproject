@@ -3,6 +3,7 @@ import instance from './instance'
 import adminModule from "./admin";
 import moderModule from './moder'
 import authModule from './auth'
+import userModule from './user'
 
 export const configs = () => {
     return {
@@ -15,5 +16,6 @@ export const configs = () => {
 export default {
     admin: adminModule(instance),
     moder: moderModule(instance),
-    auth: authModule(instance)
+    auth: authModule(instance),
+    user: userModule(instance)
 }

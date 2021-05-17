@@ -51,8 +51,8 @@ export default new VueRouter({
                         console.log(from)
                         api.admin.checkAccess()
                             .then(res => {
-                                if (res.data.answer) next()
-                                else next({name: 'auth'})
+                                console.log(res)
+                                next()
                             })
                             .catch(err => {
                                 console.log(err)
@@ -69,8 +69,8 @@ export default new VueRouter({
                         console.log(from)
                         api.moder.checkAccess()
                             .then(res => {
-                                if (res.data.answer) next()
-                                else next({name: 'auth'})
+                                console.log(res)
+                                next()
                             })
                             .catch(err => {
                                 console.log(err)

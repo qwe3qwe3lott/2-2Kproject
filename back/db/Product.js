@@ -29,6 +29,10 @@ module.exports = function (sequelize) {
         price: {
             type: Sequelize.DOUBLE,
             allowNull: false,
+        },
+        duration: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     })
 }

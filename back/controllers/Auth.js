@@ -9,6 +9,17 @@ const generateAccessToken = (id, role) => {
     return jwt.sign(payload, jwtSecret, { expiresIn: '24h' })
 }
 
+function getRouteName(role) {
+    switch (role) {
+        case 'admin':
+            return 'admin'
+        case 'moder':
+            return 'orders'
+        default:
+            return role
+    }
+}
+
 const toAuth = async function (req, res) {
     let data = req.body;
     if (data.login == null)
@@ -26,7 +37,7 @@ const toAuth = async function (req, res) {
                 if (user.hash === crypto.SHA256(data.hash + user.salt).toString(crypto.enc.Hex)) {
                     role.findOne({ attributes: ['role'], where : { id: user.roleId }})
                         .then(result => {
-                            res.status(200).json({ token: generateAccessToken(user.id, result.role) })
+                            res.status(200).json({ token: generateAccessToken(user.id, result.role), route: getRouteName(result.role) })
                         })
                         .catch(err => {
                             console.log(err)
@@ -42,10 +53,6 @@ const toAuth = async function (req, res) {
     }
 }
 
-const check = async function (req, res) {
-    let data = req.body;
-    res.status(200).json({ hash: crypto.SHA256(data.p).toString(crypto.enc.Hex)})
-}
 
 const existLogin = login =>
     user.count({ where: { login } })
@@ -54,6 +61,5 @@ const existLogin = login =>
         })
 
 module.exports = {
-    toAuth,
-    check
+    toAuth
 }

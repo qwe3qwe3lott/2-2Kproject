@@ -6,13 +6,19 @@
 
 <script>
 import CatalogSegment from "@/components/CatalogSegment";
-import {mapGetters} from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "CatalogPage",
-  components: {CatalogSegment},
+  components: { CatalogSegment },
   computed: {
     ...mapGetters(['getAllProductTypes', 'getProductCards'])
+  },
+  methods: {
+    ...mapActions(['loadAllProducts'])
+  },
+  created() {
+    this.loadAllProducts()
   }
 }
 </script>
