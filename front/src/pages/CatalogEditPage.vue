@@ -16,7 +16,7 @@ export default {
     ...mapGetters(['getExistedProductTypes', 'getProductCards'])
   },
   methods: {
-    ...mapActions(['loadAllProducts']),
+    ...mapActions(['loadAllProducts', 'loadAllProductTypes']),
     createProduct() {
       this.$store.commit('productEditForm/CLEAR')
       this.$store.commit('productEditForm/SET_SHOW', true)
@@ -24,6 +24,7 @@ export default {
   },
   created() {
     this.loadAllProducts()
+    this.loadAllProductTypes()
   }
 }
 </script>

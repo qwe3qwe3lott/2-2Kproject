@@ -40,6 +40,7 @@ export default {
         this.DELETE_PRODUCT_FROM_BASKET(this.props.id)
     },
     editThisProduct() {
+      console.log(this.props)
       this.$store.commit('productEditForm/SET', this.props)
       this.$store.commit('productEditForm/SET_SHOW', true)
     },

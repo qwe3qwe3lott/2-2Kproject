@@ -6,7 +6,7 @@ export default {
         title: "",
         description: "",
         img: "",
-        typeId: null,
+        type: null,
         price: null,
         duration: null,
         report: {}
@@ -17,7 +17,7 @@ export default {
             state.title = ""
             state.description = ""
             state.img = ""
-            state.typeId = null
+            state.type = null
             state.price = null
             state.duration = null
             state.report = ""
@@ -37,8 +37,8 @@ export default {
         SET_IMG(state, img) {
             state.img = img
         },
-        SET_TYPE_ID(state, typeId) {
-            state.typeId = typeId
+        SET_TYPE(state, typeId) {
+            state.type = typeId
         },
         SET_PRICE(state, price) {
             state.price = price
@@ -54,7 +54,7 @@ export default {
             state.title = payload.title
             state.description = payload.description
             state.img = payload.img
-            state.typeId = payload.typeId
+            state.type = payload.type
             state.price = payload.price
             state.duration = payload.duration
             state.report = ""
@@ -76,8 +76,8 @@ export default {
         getImg(state) {
             return state.img
         },
-        getTypeId(state) {
-            return state.typeId
+        getType(state) {
+            return state.type
         },
         getPrice(state) {
             return state.price
