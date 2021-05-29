@@ -22,8 +22,9 @@ export default {
           return 'Массаж'
         case 'cosmetology':
           return 'Косметология'
+        default:
+          return title
       }
-      return title
     }
   }
 }

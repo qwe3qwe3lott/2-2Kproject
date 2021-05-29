@@ -1,6 +1,6 @@
 <template>
   <section class="catalog">
-    <CatalogSegment v-for="(type, index) in getAllProductTypes" :key="index" v-bind:cards="getProductCards(type)" :title="type" :edit="false"/>
+    <CatalogSegment v-for="(type, index) in getExistedProductTypes" :key="index" v-bind:cards="getProductCards(type)" :title="type" :edit="false"/>
   </section>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   name: "CatalogPage",
   components: { CatalogSegment },
   computed: {
-    ...mapGetters(['getAllProductTypes', 'getProductCards'])
+    ...mapGetters(['getExistedProductTypes', 'getProductCards'])
   },
   methods: {
     ...mapActions(['loadAllProducts'])
