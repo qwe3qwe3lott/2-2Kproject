@@ -19,10 +19,10 @@
         <input class="reg-form__field" id="password" type="password" v-model="password" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
         <label class="reg-form__label" for="role">Роль:</label>
         <select class="reg-form__drop-down" id="role" required v-model="roleId">
-          <option v-for="(item, index) in getAllRoles" :key="index" v-bind:value="item.id">{{interpriteRole(item.role)}}</option>
+          <option v-for="(item, index) in this.getAllRoles" :key="index" v-bind:value="item.id">{{interpretRole(item.role)}}</option>
         </select>
         <input class="reg-form__submit" type="submit" value="Добавить учётную запись">
-        <p class="reg-form__report">{{getUserAddReport}}</p>
+        <p class="reg-form__report">{{getUserAddReport.message}}</p>
       </form>
     </article>
   </section>
@@ -39,15 +39,12 @@ export default {
       localStorage.removeItem('token')
       this.$router.push({ name: 'main' })
     },
-    ...mapActions(['loadUsersList', 'sendUser', 'loadAllRoles']),
+    ...mapActions(['loadUsersList', 'addUser', 'loadAllRoles']),
     submit() {
       let passHash = this.$CryptoJS.SHA256(this.password).toString(this.$CryptoJS.enc.Hex)
-      console.log(passHash)
       let salt = this.$CryptoJS.lib.WordArray.random(128 / 8).toString(this.$CryptoJS.enc.Hex)
-      console.log(salt)
       let hash = this.$CryptoJS.SHA256(passHash + salt).toString(this.$CryptoJS.enc.Hex)
-      console.log(hash)
-      this.sendUser({
+      this.addUser({
         login: this.login,
         hash,
         salt,
@@ -59,7 +56,7 @@ export default {
         }
       })
     },
-    interpriteRole(role) {
+    interpretRole(role) {
       switch (role) {
         case 'admin':
           role = "Администратор";

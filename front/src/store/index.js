@@ -1,16 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '../api'
+import productEditForm from "./modules/productEditForm";
+import productInfo from "./modules/productInfo";
 'use strict';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+    modules: {
+        productEditForm,
+        productInfo
+    },
     state: {
         users: [],
         roles: [],
+        productTypes: [],
         products: [],
-        userAddReport: "",
+        productsInBasket: [],
+        userAddReport: {},
         backEnd: true
     },
     getters: {
@@ -27,6 +35,9 @@ export default new Vuex.Store({
             return state.roles
         },
         getAllProductTypes(state) {
+            return state.productTypes
+        },
+        getExistedProductTypes(state) {
             return state.products.map(item => item.type)
                 .filter((value, index, self) => self.indexOf(value) === index)
         },
@@ -34,6 +45,15 @@ export default new Vuex.Store({
             return state.products.filter(function (el) {
                 return el.type === type;
             })
+        },
+        checkBasketHasProduct: (state) => (productId) => {
+            return state.productsInBasket.some(e => e.id === productId)
+        },
+        getProductsInBasketCount(state) {
+            return state.productsInBasket.length
+        },
+        showModalWindow(state) {
+          return state.productEditForm.show || state.productInfo.show
         }
     },
     mutations: {
@@ -49,8 +69,17 @@ export default new Vuex.Store({
         SET_ROLES(state, payload) {
             state.roles = payload
         },
+        SET_PRODUCT_TYPES(state, payload) {
+            state.productTypes = payload
+        },
         SET_PRODUCTS(state, payload) {
             state.products = payload
+        },
+        ADD_PRODUCT_TO_BASKET(state, payload) {
+            state.productsInBasket.unshift(payload)
+        },
+        DELETE_PRODUCT_FROM_BASKET(state, productId) {
+            state.productsInBasket.splice(state.productsInBasket.findIndex(e => e.id === productId))
         }
     },
     actions: {
@@ -66,7 +95,7 @@ export default new Vuex.Store({
                 commit('SET_USERS', data)
             }
         },
-        async sendUser({ commit }, payload) {
+        async addUser({ commit }, payload) {
             let data, status
             try {
                 let res = await api.admin.addUser(payload)
@@ -93,6 +122,19 @@ export default new Vuex.Store({
             }
             finally {
                 commit('SET_ROLES', data)
+            }
+        },
+        async loadAllProductTypes({ commit }) {
+            let data
+            try {
+                data = (await api.moder.getAllProductTypes()).data
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                commit('SET_BACKEND', false)
+                data = []
+            }
+            finally {
+                commit('SET_PRODUCT_TYPES', data)
             }
         },
         async loadAllProducts({ commit }) {
@@ -132,5 +174,37 @@ export default new Vuex.Store({
             }
             return status
         },
+        async updateProduct({ commit }, payload) {
+            let data, status
+            try {
+                let res = await api.moder.updateProduct(payload)
+                data = res.data
+                status = res.status
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                data = error.response.data
+                status = error.response.status
+                if (status !== 422) commit('SET_BACKEND', false)
+            } finally {
+                commit('productEditForm/SET_REPORT', data)
+            }
+            return status
+        },
+        async addProduct({ commit }, payload) {
+            let data, status
+            try {
+                let res = await api.moder.addProduct(payload)
+                data = res.date
+                status = res.status
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                data = error.response.data
+                status = error.response.status
+                if (status !== 422) commit('SET_BACKEND', false)
+            } finally {
+                commit('SET_PRODUCT_ADD_REPORT', data)
+            }
+            return status
+        }
     }
 })

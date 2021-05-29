@@ -6,6 +6,15 @@ export default function (instance) {
         },
         checkAccess() {
             return instance.get('auth/checkModer', configs())
+        },
+        updateProduct(payload) {
+            return instance.post('products/update', payload, configs())
+        },
+        addProduct(payload) {
+            return instance.post('products/add', payload, configs())
+        },
+        getAllProductTypes() {
+            return instance.get('products/allTypes', configs())
         }
     }
 }

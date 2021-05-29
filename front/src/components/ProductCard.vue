@@ -3,13 +3,12 @@
     <img class="product-card__img" :src="props.img">
     <div class="product-card__info">
       <h3 class="product-card__title">{{ props.title }}</h3>
-      <p class="product-card__prop">Цена: {{props.price}}</p>
-      <p class="product-card__prop">Продолжительность: {{props.duration}}</p>
+      <p class="product-card__prop">Цена: {{props.price}} руб.</p>
+      <p class="product-card__prop">Продолжительность:{{displayDuration(this.props.duration)}}</p>
       <div class="product-card__buttons">
-        <button class="product-card__button-decrease" v-if="!edit">-</button>
-        <p class="product-card__count" v-if="!edit"></p>
-        <button class="product-card__button-increase" v-if="!edit">+</button>
-        <button class="product-card__button" v-if="edit">Изменить</button>
+        <button @click="showInfo" class="product-card__button" v-if="!edit">Подробнее</button>
+        <button @click="addThisProductToBasket" class="product-card__button" v-bind:class="{'product-card__button_selected': this.checkBasketHasProduct(props.id)}" v-if="!edit">{{!this.checkBasketHasProduct(props.id) ? "В корзину" : "В корзине"}}</button>
+        <button class="product-card__button" v-if="edit" @click="editThisProduct">Изменить</button>
         <button class="product-card__button" v-if="edit" @click="deleteThisProduct">Удалить</button>
       </div>
     </div>
@@ -17,18 +16,42 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 
 export default {
   name: "ProductCard",
   props: ['props', 'edit'],
+  computed: mapGetters(['checkBasketHasProduct']),
   methods: {
-    ...mapActions(['deleteProduct']),
+    ...mapActions(['deleteProduct', 'loadAllProducts']),
+    ...mapMutations(['ADD_PRODUCT_TO_BASKET', 'DELETE_PRODUCT_FROM_BASKET']),
     deleteThisProduct() {
       this.deleteProduct({ id: this.props.id })
       .then(status => {
-        console.log(status)
+        if (status === 200) {
+          this.loadAllProducts()
+        }
       })
+    },
+    addThisProductToBasket() {
+      if (!this.checkBasketHasProduct(this.props.id))
+        this.ADD_PRODUCT_TO_BASKET(this.props)
+      else
+        this.DELETE_PRODUCT_FROM_BASKET(this.props.id)
+    },
+    editThisProduct() {
+      this.$store.commit('productEditForm/SET', this.props)
+      this.$store.commit('productEditForm/SET_SHOW', true)
+    },
+    showInfo() {
+      this.$store.commit('productInfo/SET_TITLE', this.props.title)
+      this.$store.commit('productInfo/SET_DESCRIPTION', this.props.description)
+      this.$store.commit('productInfo/SET_SHOW', true)
+    },
+    displayDuration(duration) {
+      let hours = duration / 60
+      let minutes = duration % 60
+      return (hours >= 1 ? " " + hours + " ч." : "") + (minutes > 0 ? " " + minutes + " мин." : "")
     }
   }
 }
