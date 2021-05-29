@@ -40,9 +40,9 @@ const addUser = async function (req, res) {
         res.status(422).json({ message: 'Не указан логин' });
     else if (data.hash == null)
         res.status(422).json({ message: 'Не указан хэш пароля' });
-    if (data.salt == null)
+    else if (data.salt == null)
         res.status(422).json({ message: 'Не указана соль' });
-    if (data.roleId == null)
+    else if (data.roleId == null)
         res.status(422).json({ message: 'Не указан id роли' });
     else if (await existLogin(data.login.toString()).catch(err => {
         console.log(err);
@@ -78,7 +78,6 @@ const deleteUser = async function (req, res) {
     else {
         user.destroy({ where: { id: data.id } })
             .then(result => {
-                console.log('Пользователь удалён');
                 res.status(200).json({ message: 'Пользователь удалён' });
             })
             .catch(err => {
@@ -94,8 +93,8 @@ const existLogin = login =>
             return count === 1;
         })
 
-const existRole = role_id =>
-    role.count({ where: { id: role_id } })
+const existRole = roleId =>
+    role.count({ where: { id: roleId } })
         .then(count => {
             return count === 1;
         })

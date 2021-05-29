@@ -5,4 +5,12 @@ const roleMiddleware = require('../middleware/roleMiddleware')
 
 router.get('/all', controller.getAllProducts)
 
+router.get('/allTypes', roleMiddleware(['admin', 'moder']), controller.getAllTypes)
+
+router.post('/add', roleMiddleware(['admin', 'moder']), controller.addProduct)
+
+router.post('/delete', roleMiddleware(['admin', 'moder']), controller.deleteProduct)
+
+router.post('/update', roleMiddleware(['admin', 'moder']), controller.updateProduct)
+
 module.exports = router;
