@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout">
     <section class="moder">
       <article class="moder__panel">
         <h1 class="moder__title">Модераторная<span class="moder__title-backend" v-if="!getBackEnd"> (backend не отвечает)</span></h1>

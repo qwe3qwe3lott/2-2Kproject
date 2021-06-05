@@ -7,7 +7,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import CatalogSegment from "@/components/CatalogSegment";
+import CatalogSegment from "../components/CatalogSegment";
 
 export default {
   name: "CatalogEditPage",

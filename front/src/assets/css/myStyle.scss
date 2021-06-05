@@ -5,11 +5,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+html {
+  height: 100%;
+}
 body {
   font-size: 1.2em;
   color: $text-color;
   background: $back-color;
   font-family: "Anonymous_Pro", serif;
+  height: 100%;
 }
 div::-webkit-scrollbar {
   width: 1em;
@@ -53,10 +57,16 @@ select {
   }
 }
 
+@media only screen and (min-width: 2000px) {
+  body {
+    font-size: 1.5em;
+  }
+}
+
 .header {
   width: 100%;
   padding: 15px;
-  background: $primary-color;
+  background: $primary-color url("../png/primaryBack.png");
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -83,9 +93,9 @@ select {
 }
 
 .admin {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+
+  width: 100%;
+  background: $second-back-color;
   &__panel {
     width: 100%;
     background: $second-back-color;
@@ -100,29 +110,47 @@ select {
   &__exit-button {
 
   }
+  &__nav {
+    border-top: rgba($primary-color, 0.5) 2px dashed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 5px;
+  }
+  &__nav-button {
+    padding: 5px;
+    text-transform: uppercase;
+    &_selected {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
   &__users {
     width: 100%;
     padding: 10px;
     margin: 0 20px;
     overflow: hidden;
   }
-  &__subtitle {
-    margin-top: 15px;
+}
+
+.users {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  &__title {
+    margin-top: 25px;
     margin-bottom: 10px;
   }
-  &__users-container {
+  &__cards {
     overflow-x: scroll;
     background: $second-back-color;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     width: 100%;
-  }
-  &__reg-form {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px;
-    margin: 0 20px;
   }
 }
 
@@ -157,7 +185,7 @@ select {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 500px;
   padding: 10px;
   &__label {
     font-size: 1.2em;
@@ -228,6 +256,7 @@ select {
 
   }
   &__nav {
+    border-top: rgba($primary-color, 0.5) 2px dashed;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -418,6 +447,7 @@ select {
   }
   &__text-area {
     margin-bottom: 10px;
+    font-size: 1.2em;
     padding: 5px;
     border-radius: 5px;
     border: none;
@@ -438,5 +468,100 @@ select {
     background: $object-color;
     border: $border-color solid 1px;
     margin-top: 20px;
+  }
+}
+
+.main {
+  &__image-container {
+    box-shadow: 0px -90px 25px -25px $back-color inset;
+    position: relative;
+  }
+  &__image {
+    object-fit: cover;
+    width: 100%;
+    max-height: 30em;
+    opacity:0.8;
+    background: $back-color;
+  }
+  &__social-icons {
+    background: $primary-color;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+  }
+}
+
+.social-icons {
+  display: grid;
+  grid-gap: 1em;
+  &__icon {
+    &>div {
+      width: 2em;
+      height: 2em;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+  &__vk {
+    &>div {
+      background-image: url("../svg/vk.svg");
+    }
+    &:hover {
+      &>div {
+        background-image: url("../svg/vk_s.svg");
+      }
+    }
+  }
+  &__fb {
+    &>div {
+      background-image: url("../svg/fb.svg");
+    }
+    &:hover {
+      &>div {
+        background-image: url("../svg/fb_s.svg");
+      }
+    }
+  }
+  &__inst {
+    &>div {
+      background-image: url("../svg/inst.svg");
+    }
+    &:hover {
+      &>div {
+        background-image: url("../svg/inst_s.svg");
+      }
+    }
+  }
+  &__wapp {
+    &>div {
+      background-image: url("../svg/wapp.svg");
+    }
+    &:hover {
+      &>div {
+        background-image: url("../svg/wapp_s.svg");
+      }
+    }
+  }
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__content {
+    flex: 1 0 auto;
+  }
+}
+
+.footer {
+  flex-shrink: 0;
+  margin: 20px 0 0 0;
+  padding: 10px;
+  background: $primary-color;
+  &__social_icons {
+    grid-template-columns: repeat(4, 1fr);
+    place-items: center;
   }
 }

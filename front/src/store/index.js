@@ -19,7 +19,8 @@ export default new Vuex.Store({
         products: [],
         productsInBasket: [],
         userAddReport: {},
-        backEnd: true
+        backEnd: true,
+        authReport: ""
     },
     getters: {
         getAllUsers(state) {
@@ -54,6 +55,9 @@ export default new Vuex.Store({
         },
         showModalWindow(state) {
           return state.productEditForm.show || state.productInfo.show
+        },
+        getAuthReport(state) {
+            return state.authReport
         }
     },
     mutations: {
@@ -80,6 +84,9 @@ export default new Vuex.Store({
         },
         DELETE_PRODUCT_FROM_BASKET(state, productId) {
             state.productsInBasket.splice(state.productsInBasket.findIndex(e => e.id === productId))
+        },
+        SET_AUTH_REPORT(state, payload) {
+            state.authReport = payload
         }
     },
     actions: {

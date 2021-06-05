@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import AdminPage from "../pages/AdminPage";
+import AdminLayout from "../pages/AdminLayout";
 import MainPage from "../pages/MainPage";
 import ModerLayout from "../pages/ModerLayout";
 import AuthPage from "../pages/AuthPage"
@@ -7,9 +7,11 @@ import Error404Page from "../pages/Error404Page"
 import HeaderLayout from "../pages/HeaderLayout";
 import MainLayout from "../pages/MainLayout";
 import CatalogPage from "../pages/CatalogPage";
-import BasketLayout from "../pages/BasketLayout";
+import BasketPage from "../pages/BasketPage";
 import CatalogEditPage from "@/pages/CatalogEditPage";
 import OrdersPage from "@/pages/OrdersPage";
+import UsersEditPage from "@/pages/UsersEditPage";
+import DashboardPage from "@/pages/DashboardPage";
 import api from '../api'
 
 export default new VueRouter({
@@ -38,14 +40,14 @@ export default new VueRouter({
                         {
                             path: '/basket',
                             name: 'basket',
-                            component: BasketLayout
+                            component: BasketPage
                         }
                     ]
                 },
                 {
                     path: '/admin',
                     name: 'admin',
-                    component: AdminPage,
+                    component: AdminLayout,
                     beforeEnter: (to, from, next) => {
                         console.log(to)
                         console.log(from)
@@ -58,7 +60,19 @@ export default new VueRouter({
                                 console.log(err)
                                 next({name: 'auth'})
                             })
-                    }
+                    },
+                    children: [
+                        {
+                            path: 'users',
+                            name: 'usersEdit',
+                            component: UsersEditPage
+                        },
+                        {
+                            path: 'dashboard',
+                            name: 'dashboard',
+                            component: DashboardPage
+                        }
+                    ]
                 },
                 {
                     path: '/moder',

@@ -37,14 +37,17 @@ const toAuth = async function (req, res) {
                 if (user.hash === crypto.SHA256(data.hash + user.salt).toString(crypto.enc.Hex)) {
                     role.findOne({ attributes: ['role'], where : { id: user.roleId }})
                         .then(result => {
-                            res.status(200).json({ token: generateAccessToken(user.id, result.role), route: getRouteName(result.role) })
+                            res.status(200).json({
+                                token: generateAccessToken(user.id, result.role),
+                                route: getRouteName(result.role)
+                            })
                         })
                         .catch(err => {
                             console.log(err)
                             res.status(500).json({ message: 'Неизвестная ошибка' })
                         })
                 }
-                else res.status(422).end('Пароль не верен')
+                else res.status(422).json({ message: 'Пароль не верен' })
             })
             .catch(err => {
                 console.log(err)

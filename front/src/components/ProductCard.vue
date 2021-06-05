@@ -50,7 +50,7 @@ export default {
       this.$store.commit('productInfo/SET_SHOW', true)
     },
     displayDuration(duration) {
-      let hours = duration / 60
+      let hours = Math.trunc(duration / 60)
       let minutes = duration % 60
       return (hours >= 1 ? " " + hours + " ч." : "") + (minutes > 0 ? " " + minutes + " мин." : "")
     }
