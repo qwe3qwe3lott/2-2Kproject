@@ -16,11 +16,16 @@ export default new Vuex.Store({
         users: [],
         roles: [],
         productTypes: [],
+        chosenTypes: [],
         products: [],
         productsInBasket: [],
         userAddReport: {},
         backEnd: true,
-        authReport: ""
+        authReport: "",
+        firstFilterPrice: null,
+        secondFilterPrice: null,
+        firstFilterDuration: null,
+        secondFilterDuration: null
     },
     getters: {
         getAllUsers(state) {
@@ -35,17 +40,23 @@ export default new Vuex.Store({
         getAllRoles(state) {
             return state.roles
         },
+        getAllProducts(state) {
+            return state.products
+        },
         getAllProductTypes(state) {
             return state.productTypes
         },
         getExistedProductTypes(state) {
             return state.products.map(item => item.type)
-                .filter((value, index, self) => self.indexOf(value) === index)
+                .filter((value, index, self) => self.indexOf(value) === index).sort()
+        },
+        getFilteredProductCards: (state, getters) => (type) => {
+            return state.products.filter(item => item.type === type && item.price >= getters.getMinFilterPrice
+                && item.price <= getters.getMaxFilterPrice && item.duration >= getters.getMinFilterDuration
+                && item.duration <= getters.getMaxFilterDuration)
         },
         getProductCards: (state) => (type) => {
-            return state.products.filter(function (el) {
-                return el.type === type;
-            })
+            return state.products.filter(item => item.type === type)
         },
         checkBasketHasProduct: (state) => (productId) => {
             return state.productsInBasket.some(e => e.id === productId)
@@ -58,7 +69,49 @@ export default new Vuex.Store({
         },
         getAuthReport(state) {
             return state.authReport
-        }
+        },
+        getChosenTypes(state) {
+            return state.chosenTypes.sort()
+        },
+        checkChosenTypeHasType: (state) => (type) => {
+            return state.chosenTypes.some(e => e === type)
+        },
+        getFirstFilterPrice(state) {
+            return state.firstFilterPrice
+        },
+        getSecondFilterPrice(state) {
+            return state.secondFilterPrice
+        },
+        getMinFilterPrice(state) {
+            return Math.min(state.firstFilterPrice, state.secondFilterPrice)
+        },
+        getMaxFilterPrice(state) {
+            return Math.max(state.firstFilterPrice, state.secondFilterPrice)
+        },
+        getMinProductPrice(state) {
+            return Math.min(...state.products.map(item => item.price))
+        },
+        getMaxProductPrice(state) {
+            return Math.max(...state.products.map(item => item.price))
+        },
+        getFirstFilterDuration(state) {
+            return state.firstFilterDuration
+        },
+        getSecondFilterDuration(state) {
+            return state.secondFilterDuration
+        },
+        getMinFilterDuration(state) {
+            return Math.min(state.firstFilterDuration, state.secondFilterDuration)
+        },
+        getMaxFilterDuration(state) {
+            return Math.max(state.firstFilterDuration, state.secondFilterDuration)
+        },
+        getMinProductDuration(state) {
+            return Math.min(...state.products.map(item => item.duration))
+        },
+        getMaxProductDuration(state) {
+            return Math.max(...state.products.map(item => item.duration))
+        },
     },
     mutations: {
         SET_USERS(state, payload) {
@@ -87,6 +140,25 @@ export default new Vuex.Store({
         },
         SET_AUTH_REPORT(state, payload) {
             state.authReport = payload
+        },
+        SET_CHOSEN_TYPES(state, payload) {
+            state.chosenTypes = payload
+        },
+        CHANGE_CHOSEN_TYPES(state, payload) {
+            if (payload.checked) state.chosenTypes.push(payload.value)
+            else state.chosenTypes.splice(state.chosenTypes.findIndex(e => e === payload.value), 1)
+        },
+        SET_FIRST_FILTER_PRICE(state, price) {
+            state.firstFilterPrice = price
+        },
+        SET_SECOND_FILTER_PRICE(state, price) {
+            state.secondFilterPrice = price
+        },
+        SET_FIRST_FILTER_DURATION(state, duration) {
+            state.firstFilterDuration = duration
+        },
+        SET_SECOND_FILTER_DURATION(state, duration) {
+            state.secondFilterDuration = duration
         }
     },
     actions: {
@@ -156,6 +228,7 @@ export default new Vuex.Store({
             finally {
                 commit('SET_PRODUCTS', data)
             }
+            return data
         },
         async deleteUser({ commit }, payload) {
             let status

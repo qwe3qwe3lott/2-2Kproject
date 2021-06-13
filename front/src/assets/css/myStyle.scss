@@ -274,15 +274,72 @@ select {
 }
 
 .catalog {
-  padding: 50px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+  &__options {
+    border-top: rgba($primary-color, 0.5) 2px dashed;
+    background: $second-back-color;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__options-subtitle {
+    margin: 10px 0;
+  }
+  &__options-type-filter {
+    margin: 5px 10px;
+  }
+  &__options-type-filter-label {
+    width: max-content;
+    align-self: flex-start;
+  }
+  &__options-slider {
+    width: 100%;
+    margin: 15px;
+    text-align: center;
+    position: relative;
+    & > input[type=range] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      &::-webkit-slider-thumb {
+        z-index: 2;
+        position: relative;
+      }
+    }
+  }
+  &__options-slider-values {
+
+  }
+  &__options-slider-value {
+
+  }
+  &__options-reset {
+    margin: 20px 0;
+    font-size: 1.2em;
+    color: $primary-text-color;
+    background: $primary-color;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 10px;
+  }
+  &__segments {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   &__add-button {
-    margin-bottom: 30px;
+    margin: 20px 0;
     font-size: 1.5em;
-    color: white;
+    color: $primary-text-color;
     background: $primary-color;
     border-radius: 10px;
     width: fit-content;
@@ -293,7 +350,7 @@ select {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 40px;
+    margin: 20px 0;
   }
   &__segment-title {
     text-align: center;
@@ -400,6 +457,7 @@ select {
   background: rgba($back-color, 0.5);
   display: grid;
   place-items: center;
+  z-index: 10;
   &__window {
     padding: 15px;
     border-radius: 10px;
@@ -491,6 +549,33 @@ select {
     left: 1em;
     bottom: 1em;
   }
+  &__containers {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 20px;
+    justify-content: center;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    border-radius: 15px;
+    background: $second-back-color;
+    width: 400px;
+  }
+  &__subtitle {
+    font-size: 1.5em;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    padding: 10px;
+    border-bottom: rgba($primary-color, 0.5) 2px dashed;;
+  }
+  &__container-content {
+    padding: 15px;
+  }
 }
 
 .social-icons {
@@ -557,7 +642,6 @@ select {
 
 .footer {
   flex-shrink: 0;
-  margin: 20px 0 0 0;
   padding: 10px;
   background: $primary-color;
   &__social_icons {

@@ -6,7 +6,7 @@
       <label class="auth-form__label" for="password">Пароль:</label>
       <input class="auth-form__field" id="password" type="password" v-model="password" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
       <input class="auth-form__submit" type="submit" value="Авторизироваться">
-      <p class="auth-form__report">{{this.getAuthReport.message}}</p>
+      <p class="auth-form__report">{{(this.getAuthReport !== null ? this.getAuthReport.message : "")}}</p>
     </form>
   </section>
 </template>
@@ -30,7 +30,16 @@ export default {
         .then(res => {
           this.SET_AUTH_REPORT(null)
           localStorage.setItem('token', res.data.token)
-          this.$router.push({ name: res.data.route })
+          let route = 'main'
+          switch (res.data.role) {
+            case "admin":
+              route = 'dashboard';
+              break;
+            case "moder":
+              route = 'orders';
+              break;
+          }
+          this.$router.push({ name: route })
         })
         .catch(err => {
           console.log(err)

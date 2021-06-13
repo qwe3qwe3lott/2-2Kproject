@@ -1,5 +1,5 @@
 <template>
-  <article class="catalog__segment">
+  <article class="catalog__segment" v-if="this.cards.length !== 0">
     <h2 class="catalog__segment-title">{{interpretTitle(title)}}</h2>
     <ProductCard v-for="(card, index) in cards" :key="index" :props="card" :edit="edit"/>
   </article>

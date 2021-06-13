@@ -9,17 +9,6 @@ const generateAccessToken = (id, role) => {
     return jwt.sign(payload, jwtSecret, { expiresIn: '24h' })
 }
 
-function getRouteName(role) {
-    switch (role) {
-        case 'admin':
-            return 'admin'
-        case 'moder':
-            return 'orders'
-        default:
-            return role
-    }
-}
-
 const toAuth = async function (req, res) {
     let data = req.body;
     if (data.login == null)
@@ -39,7 +28,7 @@ const toAuth = async function (req, res) {
                         .then(result => {
                             res.status(200).json({
                                 token: generateAccessToken(user.id, result.role),
-                                route: getRouteName(result.role)
+                                role: result.role
                             })
                         })
                         .catch(err => {
