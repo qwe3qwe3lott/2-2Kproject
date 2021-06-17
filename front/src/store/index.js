@@ -156,6 +156,9 @@ export default new Vuex.Store({
         DELETE_PRODUCT_FROM_BASKET(state, productId) {
             state.productsInBasket.splice(state.productsInBasket.findIndex(e => e.id === productId), 1)
         },
+        CLEAR_PRODUCTS_IN_BASKET(state) {
+            state.productsInBasket = []
+        },
         SET_AUTH_REPORT(state, payload) {
             state.authReport = payload
         },
@@ -292,7 +295,7 @@ export default new Vuex.Store({
             let data, status
             try {
                 let res = await api.moder.addProduct(payload)
-                data = res.date
+                data = res.data
                 status = res.status
                 commit('SET_BACKEND', true)
             } catch (error) {
@@ -308,7 +311,7 @@ export default new Vuex.Store({
             let data, status
             try {
                 let res = await api.user.addOrder(payload)
-                data = res.date
+                data = res.data
                 status = res.status
                 commit('SET_BACKEND', true)
             } catch (error) {

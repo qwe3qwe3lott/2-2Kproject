@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router'
+import api from '../api'
 import AdminLayout from "../pages/AdminLayout";
 import MainPage from "../pages/MainPage";
 import ModerLayout from "../pages/ModerLayout";
@@ -12,7 +13,7 @@ import CatalogEditPage from "@/pages/CatalogEditPage";
 import OrdersPage from "@/pages/OrdersPage";
 import UsersEditPage from "@/pages/UsersEditPage";
 import DashboardPage from "@/pages/DashboardPage";
-import api from '../api'
+import OrderSuccessPage from "@/pages/OrderSuccessPage";
 
 export default new VueRouter({
     mode: 'history',
@@ -41,6 +42,11 @@ export default new VueRouter({
                             path: '/basket',
                             name: 'basket',
                             component: BasketPage
+                        },
+                        {
+                            path: '/orderSuccess',
+                            name: 'orderSuccess',
+                            component: OrderSuccessPage
                         }
                     ]
                 },

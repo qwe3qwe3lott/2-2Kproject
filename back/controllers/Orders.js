@@ -13,12 +13,15 @@ const addOrder = async function (req, res) {
         res.status(422).json({ message: 'Не указана итоговая цена' });
     else if (data.duration == null)
         res.status(422).json({ message: 'Не указана итоговая продолжительность' });
+    else if (data.moment == null)
+        res.status(422).json({ message: 'Не указан момент приёма' });
     else if (data.productIds == null || data.productIds.length === 0)
         res.status(422).json({ message: 'Не указаны id товаров' });
     else {
         order.create({
             description: data.description,
             phone: data.phone,
+            moment: data.moment+"+0000",
             customer: data.customer,
             statusId: await getStatusId('Untreated'),
             price: data.price,
@@ -26,8 +29,8 @@ const addOrder = async function (req, res) {
         })
             .then(result => {
                 result.setProducts([...data.productIds])
-                    .then(result => {
-                        res.status(200).json({ message: 'Заказ добавлен' });
+                    .then(subResult => {
+                        res.status(200).json({ message: 'Заказ добавлен', number: result.id });
                     })
                     .catch(err => {
                         console.log(err);

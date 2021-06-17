@@ -693,6 +693,21 @@ select {
   }
 }
 
+.order-success {
+  padding: 20px;
+  &__title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  &__message {
+    text-align: center;
+    margin-bottom: 10px;
+    &_selected {
+      font-weight: bold;
+    }
+  }
+}
+
 .social-icons {
   display: grid;
   grid-gap: 1em;

@@ -17,6 +17,8 @@
       <input class="basket-form__field" id="fio" type="text" v-model="fio" required pattern="[A-Za-zА-Яа-яЁё]{1,60}\s[A-Za-zА-Яа-яЁё]{1,60}\s[A-Za-zА-Яа-яЁё]{1,60}">
       <label class="basket-form__label" for="phone">Номер телефона:</label>
       <input class="basket-form__field" id="phone" type="tel" v-model="phone" required pattern="8?-?[0-9]{3}-?[0-9]{3}-?[0-9]{2}-?[0-9]{2}">
+      <label class="basket-form__label" for="moment">Время:</label>
+      <input class="basket-form__field" id="moment" type="datetime-local" v-model="moment" required>
       <label class="basket-form__label" for="description">Комментарий:</label>
       <textarea class="basket-form__description" id="description" v-model="description" maxlength="250"/>
       <input class="basket-form__submit" type="submit" value="Отправить заказ">
@@ -30,7 +32,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 
 export default {
   name: "BasketLayout",
@@ -42,10 +44,12 @@ export default {
     return {
       fio: "",
       phone: "",
-      description: ""
+      description: "",
+      moment: null
     }
   },
   methods: {
+    ...mapMutations(['CLEAR_PRODUCTS_IN_BASKET']),
     ...mapActions(['addOrder']),
     displayDuration(duration) {
       let hours = Math.trunc(duration / 60)
@@ -56,6 +60,7 @@ export default {
       let payload = {
         customer: this.fio,
         phone: this.phone,
+        moment: this.moment,
         description: this.description,
         price: this.getProductsInBasketSumPrice,
         duration: this.getProductsInBasketSumDuration,
@@ -64,7 +69,8 @@ export default {
       this.addOrder(payload)
           .then(status => {
             if (status === 200) {
-              this.$router.push({ name: 'catalog' })
+              this.CLEAR_PRODUCTS_IN_BASKET()
+              this.$router.push({ name: 'orderSuccess' })
             }
           })
     }

@@ -32,6 +32,10 @@ module.exports = function (sequelize) {
         statusId: {
             type: Sequelize.INTEGER,
             allowNull: false
+        },
+        moment: {
+            type: Sequelize.DATE,
+            allowNull: false
         }
     })
 }
