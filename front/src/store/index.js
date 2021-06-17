@@ -19,9 +19,10 @@ export default new Vuex.Store({
         chosenTypes: [],
         products: [],
         productsInBasket: [],
-        userAddReport: {},
         backEnd: true,
-        authReport: "",
+        userAddReport: null,
+        authReport: null,
+        basketReport: null,
         firstFilterPrice: null,
         secondFilterPrice: null,
         firstFilterDuration: null,
@@ -36,6 +37,8 @@ export default new Vuex.Store({
         },
         getUserAddReport(state) {
             return state.userAddReport
+        },getBasketReport(state) {
+            return state.basketReport
         },
         getAllRoles(state) {
             return state.roles
@@ -58,11 +61,23 @@ export default new Vuex.Store({
         getProductCards: (state) => (type) => {
             return state.products.filter(item => item.type === type)
         },
-        checkBasketHasProduct: (state) => (productId) => {
-            return state.productsInBasket.some(e => e.id === productId)
+        getProductsInBasket(state) {
+            return state.productsInBasket
         },
-        getProductsInBasketCount(state) {
-            return state.productsInBasket.length
+        checkBasketHasProduct: (state, getters) => (productId) => {
+            return getters.getProductsInBasket.some(e => e.id === productId)
+        },
+        getProductsInBasketCount(state, getters) {
+            return getters.getProductsInBasket.length
+        },
+        getProductsInBasketSumPrice(state) {
+            return state.productsInBasket.sum('price')
+        },
+        getProductsInBasketSumDuration(state) {
+            return state.productsInBasket.sum('duration')
+        },
+        getProductsInBasketIds(state) {
+            return state.productsInBasket.map(item => item.id)
         },
         showModalWindow(state) {
           return state.productEditForm.show || state.productInfo.show
@@ -123,6 +138,9 @@ export default new Vuex.Store({
         SET_USER_ADD_REPORT(state, payload) {
             state.userAddReport = payload
         },
+        SET_BASKET_REPORT(state, payload) {
+            state.basketReport = payload
+        },
         SET_ROLES(state, payload) {
             state.roles = payload
         },
@@ -136,7 +154,7 @@ export default new Vuex.Store({
             state.productsInBasket.unshift(payload)
         },
         DELETE_PRODUCT_FROM_BASKET(state, productId) {
-            state.productsInBasket.splice(state.productsInBasket.findIndex(e => e.id === productId))
+            state.productsInBasket.splice(state.productsInBasket.findIndex(e => e.id === productId), 1)
         },
         SET_AUTH_REPORT(state, payload) {
             state.authReport = payload
@@ -285,6 +303,29 @@ export default new Vuex.Store({
                 commit('SET_PRODUCT_ADD_REPORT', data)
             }
             return status
+        },
+        async addOrder({ commit }, payload) {
+            let data, status
+            try {
+                let res = await api.user.addOrder(payload)
+                data = res.date
+                status = res.status
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                data = error.response.data
+                status = error.response.status
+                if (status !== 422) commit('SET_BACKEND', false)
+                if (status === 404) data = { message: "Не удалось отправить заказ, попробуйте повторить позже" }
+            } finally {
+                commit('SET_BASKET_REPORT', data)
+            }
+            return status
         }
     }
 })
+
+Array.prototype.sum = function (prop) {
+    let total = 0
+    for (let i = 0, _len = this.length; i < _len; i++ ) total += this[i][prop]
+    return total
+}

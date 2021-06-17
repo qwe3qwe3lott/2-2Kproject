@@ -15,7 +15,7 @@
         <option v-for="(item, index) in this.getAllRoles" :key="index" v-bind:value="item.id">{{interpretRole(item.role)}}</option>
       </select>
       <input class="reg-form__submit" type="submit" value="Добавить учётную запись">
-      <p class="reg-form__report">{{getUserAddReport.message}}</p>
+      <p class="reg-form__report">{{(getUserAddReport != null ? getUserAddReport.message : "")}}</p>
     </form>
   </section>
 </template>

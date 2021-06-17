@@ -5,7 +5,7 @@
     <label for="pef-title" class="product-edit-form__label">Название</label>
     <input id="pef-title" type="text" v-model="title" class="product-edit-form__field" pattern="{4,50}" required>
     <label for="pef-description" class="product-edit-form__label">Описание</label>
-    <textarea id="pef-description" v-model="description" class="product-edit-form__text-area" maxlength="255" required/>
+    <textarea id="pef-description" v-model="description" class="product-edit-form__text-area" maxlength="250" required/>
     <label for="pef-img" class="product-edit-form__label">Ссылка на изображение</label>
     <input id="pef-img" type="url" v-model="img" pattern="https://.*" placeholder="https://domain/image.jpg" class="product-edit-form__field" required>
     <label for="pef-type-id" class="product-edit-form__label">Тип</label>
