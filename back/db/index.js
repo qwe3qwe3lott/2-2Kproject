@@ -1,12 +1,12 @@
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
-    'kozlov',
-    'postgres',
-    'qwe3qwe3',
+    process.env.DATABASE_NAME,
+    process.env.DATABASE_LOGIN,
+    process.env.DATABASE_PASSWORD,
     {
-        dialect: 'postgres',
-        host: 'localhost'
+        dialect: process.env.DATABASE_DIALECT,
+        host: process.env.DATABASE_HOST
     });
 
 const User = require('./User')(sequelize)

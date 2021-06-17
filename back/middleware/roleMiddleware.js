@@ -11,6 +11,8 @@ module.exports = function (roles) {
             if (!token) return res.status(403).json({ message: 'Пользователь не авторизован' })
             let data = jwt.verify(token, jwtSecret)
             console.log(data)
+            console.log(roles)
+            console.log(data.role)
             if (!roles.includes(data.role)) return res.status(403).json({ message: 'Доступ запрещён' })
             next()
         } catch (err) {
