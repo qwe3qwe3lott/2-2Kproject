@@ -13,10 +13,6 @@ module.exports = function (sequelize) {
             type: Sequelize.STRING,
             allowNull: false
         },
-        time: {
-            type: Sequelize.DATE,
-            allowNull: false
-        },
         phone: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -27,6 +23,14 @@ module.exports = function (sequelize) {
         },
         price: {
             type: Sequelize.DOUBLE,
+            allowNull: false
+        },
+        duration: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+        },
+        statusId: {
+            type: Sequelize.INTEGER,
             allowNull: false
         }
     })
