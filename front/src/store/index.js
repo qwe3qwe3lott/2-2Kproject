@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import api from '../api'
 import productEditForm from "./modules/productEditForm";
 import productInfo from "./modules/productInfo";
+import orderInfo from "@/store/modules/orderInfo";
 'use strict';
 
 Vue.use(Vuex)
@@ -10,7 +11,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         productEditForm,
-        productInfo
+        productInfo,
+        orderInfo
     },
     state: {
         users: [],
@@ -19,6 +21,8 @@ export default new Vuex.Store({
         chosenTypes: [],
         products: [],
         productsInBasket: [],
+        orders: [],
+        orderStatuses: [],
         backEnd: true,
         userAddReport: null,
         authReport: null,
@@ -26,7 +30,10 @@ export default new Vuex.Store({
         firstFilterPrice: null,
         secondFilterPrice: null,
         firstFilterDuration: null,
-        secondFilterDuration: null
+        secondFilterDuration: null,
+        productsDashboardData: [],
+        ordersDashboardData: [],
+        ordersSearchNumber: ""
     },
     getters: {
         getAllUsers(state) {
@@ -80,7 +87,7 @@ export default new Vuex.Store({
             return state.productsInBasket.map(item => item.id)
         },
         showModalWindow(state) {
-          return state.productEditForm.show || state.productInfo.show
+          return state.productEditForm.show || state.productInfo.show || state.orderInfo.show
         },
         getAuthReport(state) {
             return state.authReport
@@ -127,6 +134,24 @@ export default new Vuex.Store({
         getMaxProductDuration(state) {
             return Math.max(...state.products.map(item => item.duration))
         },
+        getProductDashboardData(state) {
+            return state.productsDashboardData
+        },
+        getOrders(state) {
+            return state.orders
+        },
+        getFilteredOrders(state) {
+            return state.ordersSearchNumber === "" ? state.orders.slice().reverse() : state.orders.filter(order => order.id === Number(state.ordersSearchNumber))
+        },
+        getAllOrderStatuses(state) {
+            return state.orderStatuses
+        },
+        getOrdersDashboardData(state) {
+            return state.ordersDashboardData
+        },
+        getOrdersSearchNumber(state) {
+            return state.ordersSearchNumber
+        }
     },
     mutations: {
         SET_USERS(state, payload) {
@@ -180,6 +205,21 @@ export default new Vuex.Store({
         },
         SET_SECOND_FILTER_DURATION(state, duration) {
             state.secondFilterDuration = duration
+        },
+        SET_PRODUCTS_DASHBOARD_DATA(state, data) {
+            state.productsDashboardData = data
+        },
+        SET_ORDERS(state, orders) {
+            state.orders = orders
+        },
+        SET_ORDER_STATUSES(state, payload) {
+            state.orderStatuses = payload
+        },
+        SET_ORDERS_DASHBOARD_DATA(state, data) {
+            state.ordersDashboardData = data
+        },
+        SET_ORDERS_SEARCH_NUMBER(state, number) {
+            state.ordersSearchNumber = number
         }
     },
     actions: {
@@ -323,6 +363,66 @@ export default new Vuex.Store({
                 commit('SET_BASKET_REPORT', data)
             }
             return status
+        },
+        async loadAllOrders({ commit }) {
+            let data
+            try {
+                data = (await api.moder.getAllOrders()).data
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                commit('SET_BACKEND', false)
+                data = []
+            }
+            finally {
+                commit('SET_ORDERS', data)
+            }
+        },
+        async loadAllOrderStatuses({ commit }) {
+            let data
+            try {
+                data = (await api.moder.getAllOrderStatuses()).data
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                commit('SET_BACKEND', false)
+                data = []
+            }
+            finally {
+                commit('SET_ORDER_STATUSES', data)
+            }
+        },
+        async loadProductsDashboardData({ commit }) {
+            let data
+            try {
+                data = (await api.admin.getProductsDashboardData()).data
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                commit('SET_BACKEND', false)
+                data = []
+            }
+            finally {
+                commit('SET_PRODUCTS_DASHBOARD_DATA', data)
+            }
+        },
+        async loadOrdersDashboardData({ commit }) {
+            let data
+            try {
+                data = (await api.admin.getOrdersDashboardData()).data
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                commit('SET_BACKEND', false)
+                data = []
+            }
+            finally {
+                commit('SET_ORDERS_DASHBOARD_DATA', data)
+            }
+        },
+        async updateOrderStatus({ commit }, payload) {
+            try {
+                await api.moder.updateOrderStatus(payload)
+                commit('SET_BACKEND', true)
+            } catch (error) {
+                if (status !== 422) commit('SET_BACKEND', false)
+            }
         }
     }
 })

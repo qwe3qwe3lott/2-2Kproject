@@ -168,10 +168,46 @@ const getTypeId = type =>
             return type.id
         })
 
+const getDashboardData = async function (req, res) {
+    productType.findAll()
+        .then(async productTypes => {
+            let data = []
+            for (const productType of productTypes) {
+                let typeCount = await product.count({ where: { typeId: productType.id }})
+                    .catch(err => {
+                        console.log(err);
+                        return res.status(500).json({ message: 'Неизвестная ошибка' });
+                    })
+                data.unshift( { name: interpretProductType(productType.type) + " - " + typeCount, pv: typeCount } )
+            }
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ message: 'Неизвестная ошибка' });
+        })
+}
+
+const interpretProductType = type => {
+    switch (type) {
+        case 'hair':
+            return 'Парикм. зал'
+        case 'cure':
+            return 'Ман., пед.'
+        case 'massage':
+            return 'Массаж'
+        case 'cosmetology':
+            return 'Космет.'
+        default:
+            return type
+    }
+}
+
 module.exports = {
     getAllProducts,
     getAllTypes,
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getDashboardData
 }

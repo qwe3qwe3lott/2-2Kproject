@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="root">
     <header class="header">
       <button class="header__button header__home-button" @click="$router.push({ name: 'main' })">Салон красоты "Джесси"</button>
       <nav class="header__nav">
@@ -7,7 +7,7 @@
         <button class="header__button" @click="$router.push({ name: 'dashboard' })">для администрации</button>
       </nav>
     </header>
-    <router-view class="body__content"/>
+    <router-view class="root__content"/>
   </div>
 </template>
 

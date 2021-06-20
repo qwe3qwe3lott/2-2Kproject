@@ -1,6 +1,6 @@
 <template>
   <body id="app">
-    <modal-window/>
+    <modal-window />
     <router-view/>
   </body>
 </template>

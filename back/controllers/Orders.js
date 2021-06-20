@@ -1,5 +1,30 @@
 const order = require('../db').order
 const orderStatus = require('../db').orderStatus
+const product = require('../db').product
+
+const getAllOrders = async function (req, res) {
+    order.findAll( { attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment'], include: [{ model: orderStatus, attributes: ['id', 'status'], raw: true }, { model: product, through: { attributes: [] } }] } )
+        .then(orders => {
+            res.status(200).json(orders)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ message: 'Неизвестная ошибка' })
+        })
+}
+
+const getAllStatuses = async function (req, res) {
+    orderStatus.findAll()
+        .then(statuses => {
+            res.status(200).json(statuses)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ message: 'Неизвестная ошибка' })
+        })
+}
+
+//const changeStatus
 
 const addOrder = async function (req, res) {
     let data = req.body;
@@ -44,12 +69,76 @@ const addOrder = async function (req, res) {
     }
 }
 
+const updateOrderStatus = async function (req, res) {
+    let data = req.body;
+    if (data.orderId == null)
+        res.status(422).json({ message: 'Не указан id заказа' });
+    else if (data.statusId == null)
+        res.status(422).json({ message: 'Не указан id статуса' });
+    else {
+        let result = await order.findOne({ where: { id: data.orderId } })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ message: 'Неизвестная ошибка' });
+            })
+        result.update({
+            statusId: data.statusId
+        })
+            .then(result => {
+                res.status(200).json({ message: 'Статус обновлён' });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ message: 'Неизвестная ошибка' });
+            })
+    }
+}
+
 const getStatusId = status =>
     orderStatus.findOne({ where: { status } })
     .then(status => {
         return status.id
     })
 
+const getDashboardData = async function (req, res) {
+    orderStatus.findAll()
+        .then(async orderStatuses => {
+            let data = []
+            for (const orderStatus of orderStatuses) {
+                let statusCount = await order.count({ where: { statusId: orderStatus.id }})
+                    .catch(err => {
+                        console.log(err);
+                        return res.status(500).json({ message: 'Неизвестная ошибка' });
+                    })
+                data.unshift( { name: interpretOrderStatus(orderStatus.status) + " - " + statusCount, pv: statusCount } )
+            }
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ message: 'Неизвестная ошибка' });
+        })
+}
+
+const interpretOrderStatus = status => {
+    switch (status) {
+        case 'Untreated':
+            return 'На рассм.'
+        case 'Planned':
+            return 'Заплан.'
+        case 'Denied':
+            return 'Отказано'
+        case 'Done':
+            return 'Выполнено'
+        default:
+            return status
+    }
+}
+
 module.exports = {
-    addOrder
+    addOrder,
+    getAllOrders,
+    getAllStatuses,
+    getDashboardData,
+    updateOrderStatus
 }

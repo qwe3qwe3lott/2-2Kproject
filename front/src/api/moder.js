@@ -15,6 +15,15 @@ export default function (instance) {
         },
         getAllProductTypes() {
             return instance.get('products/allTypes', configs())
+        },
+        getAllOrders() {
+            return instance.get('orders/all', configs())
+        },
+        getAllOrderStatuses() {
+            return instance.get('orders/allStatuses', configs())
+        },
+        updateOrderStatus(payload) {
+            return instance.post('orders/updateStatus', payload, configs())
         }
     }
 }

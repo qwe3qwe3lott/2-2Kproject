@@ -15,6 +15,12 @@ export default function (instance) {
         },
         checkAccess() {
             return instance.get('auth/checkAdmin', configs())
+        },
+        getProductsDashboardData() {
+            return instance.get('products/getDashboardData', configs())
+        },
+        getOrdersDashboardData() {
+            return instance.get('orders/getDashboardData', configs())
         }
     }
 }

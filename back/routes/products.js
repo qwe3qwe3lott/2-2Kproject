@@ -13,4 +13,7 @@ router.post('/delete', roleMiddleware(['admin', 'moder']), controller.deleteProd
 
 router.post('/update', roleMiddleware(['admin', 'moder']), controller.updateProduct)
 
+router.get('/getDashboardData', roleMiddleware(['admin']), controller.getDashboardData)
+//router.get('/getDashboardData', controller.getDashboardData)
+
 module.exports = router;

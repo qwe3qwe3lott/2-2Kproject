@@ -1,14 +1,14 @@
 <template>
-  <section class="users">
+  <article class="users">
     <h2 class="users__title">Учётные записи сотрудников</h2>
     <div class="users__cards">
       <user-card v-for="(user, index) in getAllUsers" :key="index" :index="index" :user="user"/>
     </div>
     <h2 class="users__title">Добавление учётной записи</h2>
     <form class="reg-form" @submit.prevent="submit()">
-      <label class="reg-form__label" for="login">Логин:</label>
+      <label class="reg-form__label" for="login">Логин: <span class="auth-form__label-tip">буквы и цифры (6-30)</span></label>
       <input class="reg-form__field" id="login" type="text" v-model="login" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
-      <label class="reg-form__label" for="password">Пароль:</label>
+      <label class="reg-form__label" for="password">Пароль: <span class="auth-form__label-tip">буквы и цифры (6-30)</span></label>
       <input class="reg-form__field" id="password" type="password" v-model="password" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
       <label class="reg-form__label" for="role">Роль:</label>
       <select class="reg-form__drop-down" id="role" required v-model="roleId">
@@ -17,7 +17,7 @@
       <input class="reg-form__submit" type="submit" value="Добавить учётную запись">
       <p class="reg-form__report">{{(getUserAddReport != null ? getUserAddReport.message : "")}}</p>
     </form>
-  </section>
+  </article>
 </template>
 
 <script>

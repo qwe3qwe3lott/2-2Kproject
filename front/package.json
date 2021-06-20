@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "laue": "^0.2.1",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
     "vue-cryptojs": "^2.1.5",

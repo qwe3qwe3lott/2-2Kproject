@@ -64,6 +64,138 @@ select {
   }
 }
 
+@mixin form {
+  background: $second-back-color;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  &__label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  &__label-tip {
+    font-size: 0.7em;
+    font-weight: bold;
+  }
+  &__field {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+  }
+  &__counter {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 5em;
+  }
+  &__textarea {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    height: 10em;
+    resize: vertical;
+    min-height: 5em;
+  }
+  &__submit {
+    width: fit-content;
+    align-self: center;
+    padding: 10px;
+    border-radius: 10px;
+    background: $primary-color;
+    color: $primary-text-color;
+    margin-top: 20px;
+  }
+  &__report {
+    align-self: center;
+    text-wrap: normal;
+    word-break: break-all;
+    margin-top: 10px;
+  }
+  &__drop-down {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+  }
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    margin-top: 5px;
+  }
+  &__description {
+    width: 100%;
+    text-align: justify;
+    text-indent: 1.5em;
+  }
+  &__prop {
+    margin-bottom: 10px;
+  }
+  &__list {
+
+  }
+  &__list-element {
+    margin-bottom: 10px;
+  }
+}
+
+@mixin user-section {
+  width: 100%;
+  background: $back-color;
+  &__panel {
+    width: 100%;
+    background: $second-back-color;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: rgba($primary-color, 0.5) 2px dashed;
+  }
+  &__title {
+    font-size: 2em;
+  }
+  &__exit-button {
+
+  }
+  &__nav {
+    background: $second-back-color;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 5px;
+  }
+  &__nav-button {
+    padding: 5px;
+    text-transform: uppercase;
+    &_selected {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__content {
+    flex: 1 1 auto;
+  }
+}
+
+.root {
+  @include layout;
+}
+
 .header {
   width: 100%;
   padding: 15px;
@@ -94,39 +226,7 @@ select {
 }
 
 .admin {
-
-  width: 100%;
-  background: $second-back-color;
-  &__panel {
-    width: 100%;
-    background: $second-back-color;
-    padding: 10px 30px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  &__title {
-    font-size: 2em;
-  }
-  &__exit-button {
-
-  }
-  &__nav {
-    border-top: rgba($primary-color, 0.5) 2px dashed;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 5px;
-  }
-  &__nav-button {
-    padding: 5px;
-    text-transform: uppercase;
-    &_selected {
-      font-weight: bold;
-      text-decoration: underline;
-    }
-  }
+  @include user-section;
   &__users {
     width: 100%;
     padding: 10px;
@@ -163,8 +263,7 @@ select {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  min-width: 275px;
-  max-width: 275px;
+  min-width: 14em;
   &__title {
     font-weight: bold;
   }
@@ -182,96 +281,18 @@ select {
 }
 
 .reg-form {
-  background: $second-back-color;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  padding: 10px;
-  &__label {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  &__field {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-  }
-  &__drop-down {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-  }
-  &__submit {
-    width: fit-content;
-    align-self: center;
-    padding: 5px;
-    border-radius: 5px;
-    background: $object-color;
-    border: $border-color solid 1px;
-    margin-top: 20px;
-  }
-  &__report {
-    align-self: center;
-    text-wrap: normal;
-    word-break: break-all;
-    margin-top: 10px;
-  }
+  @include form;
+  width: 25em;
 }
 
-.main-nav {
-  width: 100%;
-  padding: 5px;
-  background: $second-back-color;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  &__button {
-    border: none;
-    padding: 5px;
-    background: none;
-    text-transform: uppercase;
-    &_selected {
-      font-weight: bold;
-      text-decoration: underline;
-    }
+@media (max-width: 400px) {
+  .reg-form {
+    width: 100%;
   }
 }
 
 .moder {
-  width: 100%;
-  background: $second-back-color;
-  &__panel {
-    padding: 10px 30px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  &__title {
-    font-size: 2em;
-  }
-  &__exit-button {
-
-  }
-  &__nav {
-    border-top: rgba($primary-color, 0.5) 2px dashed;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 5px;
-  }
-  &__nav-button {
-    padding: 5px;
-    text-transform: uppercase;
-    &_selected {
-      font-weight: bold;
-      text-decoration: underline;
-    }
-  }
+  @include user-section;
 }
 
 .catalog {
@@ -280,14 +301,19 @@ select {
   justify-content: space-between;
   width: 100%;
   align-items: flex-start;
-  &__options {
+  height: max-content;
+  &__options-container {
     border-top: rgba($primary-color, 0.5) 2px dashed;
     background: $second-back-color;
     padding: 20px;
     height: 100%;
+  }
+  &__options {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: sticky;
+    top: 0;
   }
   &__options-subtitle {
     margin: 10px 0;
@@ -360,11 +386,20 @@ select {
   }
 }
 
+@media (max-width: 500px) {
+  .catalog {
+    flex-direction: column;
+    &__options-container {
+      width: 100%;
+    }
+  }
+}
+
 .product-card {
   margin: 15px;
   background: $object-color;
   border-radius: 15px;
-  width: 350px;
+  width: 18em;
   &__img {
     object-fit: cover;
     height: 200px;
@@ -418,36 +453,35 @@ select {
 }
 
 .auth-form {
-  background: $second-back-color;
-  border-radius: 10px;
+  @include form;
+}
+
+.dashboard{
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 10px;
-  &__label {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  &__container {
+    width: 500px;
   }
-  &__field {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
+  &__diagram-container {
+
   }
-  &__submit {
-    width: fit-content;
-    align-self: center;
-    padding: 5px;
-    border-radius: 5px;
-    background: $object-color;
-    border: $border-color solid 1px;
-    margin-top: 20px;
+  &__pie {
+    font-size: 0.6em;
   }
-  &__report {
-    align-self: center;
-    text-wrap: normal;
-    word-break: break-all;
-    margin-top: 10px;
+  &__subtitle {
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .dashboard {
+    &__diagram-container {
+      display: none;
+    }
   }
 }
 
@@ -466,68 +500,41 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
   }
   &__close-button {
     width: 20px;
     height: 20px;
+    min-height: 20px;
+    min-width: 20px;
     background: url("../svg/cross.svg");
     align-self: flex-end;
   }
 }
 
-.product-info {
-  width: 500px;
-  &__title {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-  }
-  &__description {
-    text-align: justify;
-    text-indent: 1.5em;
+@media (max-width: 400px) {
+  .modal-window {
+    &__window {
+      height: 100%;
+      width: 100% !important;
+      border-radius: 0 !important;
+    }
   }
 }
 
+.product-info {
+  @include form;
+  width: 25em;
+}
+
 .product-edit-form {
-  width: 500px;
-  &__title {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-  }
-  &__label {
-    font-size: 1.2em;
-    margin-bottom: 5px;
-  }
-  &__field {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-  }
-  &__text-area {
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-    height: 100px;
-    resize: vertical;
-  }
-  &__drop-down {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    min-width: 150px;
-  }
-  &__submit {
-    padding: 5px;
-    border-radius: 5px;
-    background: $object-color;
-    border: $border-color solid 1px;
-    margin-top: 20px;
-  }
+  @include form;
+  width: 25em;
+}
+
+.client {
+  @include user-section;
+  @include layout;
 }
 
 .main {
@@ -579,6 +586,94 @@ select {
   }
 }
 
+.orders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  &__search-form {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: $second-back-color;
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+  &__search-form-label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  &__search-form-field {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+  }
+  &__list {
+    padding: 10px;
+    border-radius: 10px;
+    background: $second-back-color;
+    width: 30em;
+  }
+  &__list-element {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  &__list-element-label {
+    font-size: 1.2em;
+    padding: 0.7em;
+    flex-grow: 1;
+  }
+  &__list-element-prop {
+    padding: 0.7em;
+    flex-grow: 1;
+  }
+  &__list-element-id {
+    width: 15%;
+  }
+  &__list-element-status {
+    width: 50%;
+  }
+  &__list-element-description {
+    width: 35%;
+  }
+  &__list-button {
+    background: $primary-color;
+    color: $primary-text-color;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  &__list-select {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .orders {
+    &__list {
+      width: 100%;
+    }
+    &__list-element-status {
+      display: none;
+    }
+  }
+}
+
+.order-info {
+  @include form;
+  width: 25em;
+}
+
 .basket {
   display: flex;
   flex-direction: row;
@@ -593,7 +688,6 @@ select {
   }
   &__list {
     margin: 10px;
-    min-width: 350px;
     border-radius: 10px;
     background: $second-back-color;
   }
@@ -618,17 +712,16 @@ select {
     flex-grow: 1;
   }
   &__list-element-title {
-    flex-basis: 60%;
+    flex-basis: 45%;
   }
   &__list-element-price {
-    flex-basis: 20%;
+    flex-basis: 25%;
   }
   &__list-element-duration {
-    flex-basis: 20%;
+    flex-basis: 30%;
   }
   &__form {
     margin: 10px;
-    min-width: 350px;
     border-radius: 10px;
     background: $second-back-color;
   }
@@ -651,46 +744,7 @@ select {
 }
 
 .basket-form {
-  background: $second-back-color;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  &__label {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  &__field {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-  }
-  &__description {
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-    height: 100px;
-    resize: vertical;
-  }
-  &__submit {
-    width: fit-content;
-    align-self: center;
-    padding: 10px;
-    border-radius: 10px;
-    background: $primary-color;
-    color: $primary-text-color;
-    margin-top: 20px;
-  }
-  &__report {
-    align-self: center;
-    text-wrap: normal;
-    word-break: break-all;
-    margin-top: 10px;
-  }
+  @include form;
 }
 
 .order-success {
@@ -761,15 +815,6 @@ select {
   }
 }
 
-.layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  &__content {
-    flex: 1 0 auto;
-  }
-}
-
 .footer {
   flex-shrink: 0;
   padding: 10px;
@@ -777,5 +822,33 @@ select {
   &__social_icons {
     grid-template-columns: repeat(4, 1fr);
     place-items: center;
+  }
+}
+
+@media print {
+  @page {
+    margin: 1cm 2cm 1cm 1cm;
+  }
+
+  .modal-window {
+    display: none;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .admin {
+    &__panel, &__nav {
+      display: none;
+    }
+  }
+
+  .dashboard {
+    display: block;
+    &__container {
+      page-break-after: always;
+      margin: auto;
+    }
   }
 }

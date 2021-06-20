@@ -1,10 +1,10 @@
 <template>
-  <section class="catalog">
+  <article class="catalog">
     <div class="catalog__segments">
       <button class="catalog__add-button" @click="createProduct">Добавить новую позицию</button>
       <CatalogSegment v-for="(type, index) in this.getExistedProductTypes" :key="index" v-bind:cards="getProductCards(type)" :title="type" :edit="true"/>
     </div>
-  </section>
+  </article>
 </template>
 
 <script>

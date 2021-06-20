@@ -1,9 +1,9 @@
 <template>
   <section class="auth">
     <form class="auth__form auth-form" @submit.prevent="submit">
-      <label class="auth-form__label" for="login">Логин:</label>
+      <label class="auth-form__label" for="login">Логин: <span class="auth-form__label-tip">буквы и цифры (6-30)</span></label>
       <input class="auth-form__field" id="login" type="text" v-model="login" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
-      <label class="auth-form__label" for="password">Пароль:</label>
+      <label class="auth-form__label" for="password">Пароль: <span class="auth-form__label-tip">буквы и цифры (6-30)</span></label>
       <input class="auth-form__field" id="password" type="password" v-model="password" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
       <input class="auth-form__submit" type="submit" value="Авторизироваться">
       <p class="auth-form__report">{{(this.getAuthReport !== null ? this.getAuthReport.message : "")}}</p>
