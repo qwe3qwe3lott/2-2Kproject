@@ -40,6 +40,8 @@ const addOrder = async function (req, res) {
         res.status(422).json({ message: 'Не указана итоговая продолжительность' });
     else if (data.moment == null)
         res.status(422).json({ message: 'Не указан момент приёма' });
+    else if (new Date(data.moment).getTime() < new Date().getTime())
+        res.status(422).json({ message: 'Время указано в прошлом' });
     else if (data.productIds == null || data.productIds.length === 0)
         res.status(422).json({ message: 'Не указаны id товаров' });
     else {

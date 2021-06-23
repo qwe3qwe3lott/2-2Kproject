@@ -75,6 +75,8 @@ const deleteUser = async function (req, res) {
     let data = req.body;
     if (data.id == null)
         res.status(422).json({ message: 'Не указан id' });
+    if (data.id === req.userId)
+        res.status(422).json({ message: 'Нельзя удалить самого себя' });
     else {
         user.destroy({ where: { id: data.id } })
             .then(result => {

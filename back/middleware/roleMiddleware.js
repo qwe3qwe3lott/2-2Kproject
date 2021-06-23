@@ -12,8 +12,9 @@ module.exports = function (roles) {
             let data = jwt.verify(token, jwtSecret)
             console.log(data)
             console.log(roles)
-            console.log(data.role)
+            console.log(role)
             if (!roles.includes(data.role)) return res.status(403).json({ message: 'Доступ запрещён' })
+            req.userId = data.id
             next()
         } catch (err) {
             console.log(err)

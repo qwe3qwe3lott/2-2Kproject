@@ -470,10 +470,18 @@ select {
 
   }
   &__pie {
-    font-size: 0.6em;
+    font-size: 0.4em;
   }
   &__subtitle {
     text-align: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .dashboard {
+    &__pie {
+      font-size: 0.8em;
+    }
   }
 }
 
@@ -583,6 +591,23 @@ select {
   }
   &__container-content {
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  &__container-line {
+    margin-bottom: 10px;
+    &_selected {
+      font-weight: bolder;
+    }
+  }
+  &__container-button {
+    background: $primary-color;
+    color: $primary-text-color;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px;
   }
 }
 

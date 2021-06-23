@@ -1,9 +1,9 @@
 <template>
   <section class="client">
     <nav class="client__nav">
-      <button class="client__nav-button" @click="$router.push({ name: 'main' })" v-bind:class="{ 'main-nav__button_selected': check('main')}">О нас</button>
-      <button class="client__nav-button" @click="$router.push({ name: 'catalog' })" v-bind:class="{ 'main-nav__button_selected': check('catalog')}">Каталог</button>
-      <button class="client__nav-button" @click="$router.push({ name: 'basket' })" v-bind:class="{ 'main-nav__button_selected': check('basket')}">Корзина <span v-if="this.getProductsInBasketCount > 0"> ({{getProductsInBasketCount}})</span></button>
+      <button class="client__nav-button" @click="$router.push({ name: 'main' })" v-bind:class="{ 'client__nav-button_selected': check('main')}">О нас</button>
+      <button class="client__nav-button" @click="$router.push({ name: 'catalog' })" v-bind:class="{ 'client__nav-button_selected': check('catalog')}">Каталог</button>
+      <button class="client__nav-button" @click="$router.push({ name: 'basket' })" v-bind:class="{ 'client__nav-button_selected': check('basket')}">Корзина <span v-if="this.getProductsInBasketCount > 0"> ({{getProductsInBasketCount}})</span></button>
     </nav>
     <router-view class="client__content"/>
     <MainFooter/>
