@@ -11,7 +11,6 @@ const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/products');
 const ordersRouter = require('./routes/orders');
 
-const sequelize = require('./db').sequelize;
 const cors = require('cors')
 
 const app = express();

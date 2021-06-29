@@ -1,7 +1,7 @@
 <template>
   <article class="main">
     <div class="main__image-container">
-      <img class="main__image" src="../assets/png/home.png"/>
+      <img class="main__image" src="../assets/png/home.webp"/>
       <div class="main__social-icons social-icons">
         <a href="https://ru.wikipedia.org/wiki/Заглавная_страница" target="_blank" class="social-icons__icon social-icons__vk"><div/></a>
         <a href="https://ru.wikipedia.org/wiki/Заглавная_страница" target="_blank" class="social-icons__icon social-icons__fb"><div/></a>

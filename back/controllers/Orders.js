@@ -3,7 +3,8 @@ const orderStatus = require('../db').orderStatus
 const product = require('../db').product
 
 const getAllOrders = async function (req, res) {
-    order.findAll( { attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment'], include: [{ model: orderStatus, attributes: ['id', 'status'], raw: true }, { model: product, through: { attributes: [] } }] } )
+    order.findAll( { attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment'],
+        include: [{ model: orderStatus, attributes: ['id', 'status'], raw: true }, { model: product, through: { attributes: [] } }] } )
         .then(orders => {
             res.status(200).json(orders)
         })

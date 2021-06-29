@@ -5,8 +5,8 @@
     <p class="order-info__prop">Клиент: {{info.customer}}</p>
     <p class="order-info__prop">Телефон: {{info.phone}}</p>
     <p class="order-info__prop">Комментарий: {{info.description}}</p>
-    <p class="order-info__prop">Сумма: {{info.price}}</p>
-    <p class="order-info__prop">Продолжительность: {{info.duration}}</p>
+    <p class="order-info__prop">Сумма: {{info.price}} руб.</p>
+    <p class="order-info__prop">Продолжительность: {{displayDuration(info.duration)}}</p>
     <p class="order-info__prop">Время приёма: {{info.moment}}</p>
     <h3 class="order-info__title">Содержание заказа:</h3>
     <ul class="order-info__list">
@@ -23,6 +23,13 @@ export default {
       get() {
         return this.$store.getters["orderInfo/getInfo"]
       }
+    }
+  },
+  methods: {
+    displayDuration(duration) {
+      let hours = Math.trunc(duration / 60)
+      let minutes = duration % 60
+      return (hours >= 1 ? " " + hours + " ч." : "") + (minutes > 0 ? " " + minutes + " мин." : "")
     }
   }
 }

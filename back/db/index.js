@@ -1,12 +1,22 @@
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize(
+//Из-за проблем между pm2 и dotenv пришлось захардкодить .env конфиг
+/*const sequelize = new Sequelize(
     process.env.DATABASE_NAME,
     process.env.DATABASE_LOGIN,
     process.env.DATABASE_PASSWORD,
     {
         dialect: process.env.DATABASE_DIALECT,
         host: process.env.DATABASE_HOST
+    });*/
+
+const sequelize = new Sequelize(
+    'std_1497_kozlov',
+    'std_1497_kozlov',
+    'qwe3qwe3',
+    {
+        dialect: 'mysql',
+        host: 'std-mysql'
     });
 
 const User = require('./User')(sequelize)

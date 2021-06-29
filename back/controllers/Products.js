@@ -58,7 +58,7 @@ const addProduct = async function (req, res) {
             duration: data.duration
         })
             .then(result => {
-                res.status(200).json({ message: 'Позиция добавлена' });
+                res.status(200).json({ message: 'Позиция добавлена', id: result.id });
             })
             .catch(err => {
                 console.log(err);
