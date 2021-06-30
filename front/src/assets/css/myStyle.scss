@@ -875,5 +875,8 @@ select {
       page-break-after: always;
       margin: auto;
     }
+    &__pie {
+      font-size: 0.5em;
+    }
   }
 }

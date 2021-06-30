@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Козлов Александр 191-361</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                padding: 2em;
+                background: #fff2ea;
+                color: dimgrey;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            h1 {
+                font-size: 2.5em;
+                padding: 0.5em;
+                text-align: center;
+                grid-column: 1/3;
+            }
+            h2 {
+                font-size: 2em;
+                padding: 0.5em;
+                text-align: center;
+                border-bottom: dashed #D46678 2px;
+                width: 100%;
+                margin: 0;
+            }
+            p {
+                font-size: 2em;
+                padding: 0.5em;
+                text-align: center;
+                margin: 0;
+            }
+            article {
+                margin: 1em;
+                border-radius: 1em;
+                display: grid;
+                align-items: flex-start;
+                background: #ffe5b4;
+                grid-auto-rows: min-content;
+                justify-items: center;
+            }
+            article:last-child {
+                margin: 1em;
+                border-radius: 1em;
+                display: grid;
+                align-items: flex-start;
+                background: #ffe5b4;
+                grid-auto-rows: min-content;
+                justify-items: center;
+                grid-column: 1/3;
+            }
+            a {
+                font-size: 2em;
+            }
+            li {
+                font-size: 2em;
+                margin: 0 1em;
+            }
+            iframe {
+                margin: 1em;
+            }
+            @media screen and (max-width: 1100px) {
+                body {
+                    grid-template-columns: 1fr;
+                }
+                body>* {
+                    grid-column: 1/2;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Лэндинг проекта Козлова Александра 191-361</h1>
+        <article>
+        <h2>Краткое описание</h2>
+        <p>В рамках данного курсового проекта была разработана информационная система для салона красоты. В состав разработанной системы входят frontend, backend и база данных. Система размещена на хостинге факультета информационных технологий.</p>
+        <p>Целью данного курсового проекта является расширение информационного поля небольшого салона красоты, а именно формирование информационной системы для более удобного способа информирования клиентов об оказываемых услугах и способа ведения учёта заказов.</p>    
+        </article>
+        <article>
+        <h2>Стек используемых технологий</h2>
+        <p>Веб-приложение: Vue.js</p>
+        <p>Серверное приложение: Express.js</p>
+        <p>База данных: mySQL</p>
+        </article>
+        <article>
+            <h2>Видеопрезентация</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/ACHISBgCwCA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </article>
+        <article>
+            <h2>Результаты</h2>
+            <ul>
+                <li>Веб-приложение</li>
+                <li>Серверное приложение</li>
+                <li>Лэндинг</li>
+                <li>База данных</li>
+                <li>Пояснтельная записка</li>
+                <li>Файл конфигурации автотестов для "Postman"</li>
+                <li>Прочие сопровождающие материалы (исходники диаграмм и т.п.)</li>
+                <li>Заполненный оценочный лист</li>
+            </ul>
+        </article>
+        <article>
+            <h2>Ссылки</h2>
+            <a href="https://github.com/qwe3qwe3lott/2-2Kproject" target="_blank">github</a>
+            <a href="http://kozlov.std-1497.ist.mospolytech.ru" target="_blank">frontend</a>
+        </article>
+    </body>
+</html>
