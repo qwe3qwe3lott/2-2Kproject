@@ -1,6 +1,6 @@
 import instance from './instance'
 
-import adminModule from "./admin";
+import adminModule from './admin';
 import moderModule from './moder'
 import authModule from './auth'
 import userModule from './user'

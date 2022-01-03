@@ -1,21 +1,23 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
 require('dotenv').config()
+
+const app = express();
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+  next();
+});
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/products');
 const ordersRouter = require('./routes/orders');
-
-const cors = require('cors')
-
-const app = express();
-
-app.use(cors())
 
 /*sequelize.sync({alter: true})
     .then(result => {
@@ -54,6 +56,8 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+})
 
-module.exports = app;
+app.listen(3000, function () {
+  console.log('Сервер запущен')
+})

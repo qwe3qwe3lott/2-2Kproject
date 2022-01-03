@@ -1,11 +1,9 @@
 import axios from "axios";
 
 const instance = axios.create({
-    //baseURL: 'http://localhost:3000',
-    baseURL: 'http://back.std-1497.ist.mospolytech.ru',
+    baseURL:  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://back.std-1497.ist.mospolytech.ru',
     headers: {
-        accept: 'applications/json',
-        'Access-Control-Allow-Origin': '*'
+        accept: 'applications/json'
     }
 })
 
