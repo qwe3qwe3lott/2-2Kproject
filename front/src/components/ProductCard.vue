@@ -6,8 +6,8 @@
       <p class="product-card__prop">Цена: {{props.price}} руб.</p>
       <p class="product-card__prop">Продолжительность:{{displayDuration(this.props.duration)}}</p>
       <div class="product-card__buttons">
-        <button @click="showInfo" class="product-card__button" v-if="!edit">Подробнее</button>
-        <button @click="addThisProductToBasket" class="product-card__button" v-bind:class="{'product-card__button_selected': this.checkBasketHasProduct(props.id)}" v-if="!edit">{{!this.checkBasketHasProduct(props.id) ? "В корзину" : "В корзине"}}</button>
+        <button @click="$emit('chooseDescription', props.description)" class="product-card__button" v-if="!edit">Описание</button>
+        <button @click="addThisProductToBasket" class="product-card__button" :class="{'product-card__button_selected': this.checkBasketHasProduct(props.id)}" v-if="!edit">{{!this.checkBasketHasProduct(props.id) ? "В корзину" : "В корзине"}}</button>
         <button class="product-card__button" v-if="edit" @click="editThisProduct">Изменить</button>
         <button class="product-card__button" v-if="edit" @click="deleteThisProduct">Удалить</button>
       </div>
@@ -37,14 +37,8 @@ export default {
       if (!this.checkBasketHasProduct(this.props.id)) { this.ADD_PRODUCT_TO_BASKET(this.props) } else { this.DELETE_PRODUCT_FROM_BASKET(this.props.id) }
     },
     editThisProduct () {
-      console.log(this.props)
       this.$store.commit('productEditForm/SET', this.props)
-      this.$store.commit('productEditForm/SET_SHOW', true)
-    },
-    showInfo () {
-      this.$store.commit('productInfo/SET_TITLE', this.props.title)
-      this.$store.commit('productInfo/SET_DESCRIPTION', this.props.description)
-      this.$store.commit('productInfo/SET_SHOW', true)
+      this.$emit('edit', true)
     },
     displayDuration (duration) {
       const hours = Math.trunc(duration / 60)

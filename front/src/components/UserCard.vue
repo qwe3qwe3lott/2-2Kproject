@@ -2,7 +2,7 @@
   <div class="user-card">
     <h3 class="user-card__title">Учётная запись № {{index + 1}}</h3>
     <p class="user-card__prop">Логин: {{user.login}}</p>
-    <p class="user-card__prop">Роль: {{interpriteRole(user.role)}}</p>
+    <p class="user-card__prop">Роль: {{ $interpreter.interpretUserRole(user.role) }}</p>
     <button class="user-card__delete-button" @click="this.delete"/>
   </div>
 </template>
@@ -22,17 +22,6 @@ export default {
       }).then(status => {
         if (status === 200) this.loadUsersList()
       })
-    },
-    interpriteRole (role) {
-      switch (role) {
-        case 'admin':
-          role = 'Администратор'
-          break
-        case 'moder':
-          role = 'Модератор'
-          break
-      }
-      return role
     }
   }
 }

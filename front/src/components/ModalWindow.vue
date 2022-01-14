@@ -1,19 +1,24 @@
 <template>
-  <section class="modal-window" v-if="this.showModalWindow">
-    <ProductInfo/>
-    <ProductEditForm/>
-    <OrderInfo/>
-  </section>
+  <div class="modal">
+    <div class="modal__window" role="dialog">
+      <h2 class="modal__window-title">
+        {{ title }}
+      </h2>
+      <button type="button" class="modal__window-close" @click="$emit('close')" />
+      <div class="modal__window-content">
+        <slot name="content" />
+      </div>
+    </div>
+  </div>
 </template>
-
 <script>
-import { mapGetters } from 'vuex'
-import ProductEditForm from '@/components/modal/ProductEditForm'
-import ProductInfo from '@/components/modal/ProductInfo'
-import OrderInfo from '@/components/modal/OrderInfo'
 export default {
   name: 'ModalWindow',
-  components: { OrderInfo, ProductInfo, ProductEditForm },
-  computed: mapGetters(['showModalWindow'])
+  props: {
+    title: {
+      type: String,
+      default: () => ''
+    }
+  }
 }
 </script>

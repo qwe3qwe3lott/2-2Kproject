@@ -3,7 +3,7 @@
   <div class="orders__list-element-header">
     <span class="orders__list-element-id">{{`№${order.id}`}}</span>
     <select class="orders__list-element-select" :value="order.order_status.id" @change="$emit('changeOrderStatus', $event)">
-      <option v-for="(item, index) in orderStatuses" :key="index" :value="item.id">{{item.status}}</option>
+      <option v-for="(item, index) in orderStatuses" :key="index" :value="item.id">{{$interpreter.interpretOrderStatus(item.status)}}</option>
     </select>
     <button class="orders__list-element-open-button" @click="showBody ^= true"/>
   </div>

@@ -3,7 +3,7 @@
     <div class="catalog__options">
       <h2 class="catalog__options-subtitle">Категории</h2>
       <label class="catalog__options-type-filter-label" v-for="(type, index) in getExistedProductTypes" :key="index" >
-        <input class="catalog__options-type-filter" type="checkbox" :value="type" :checked="checkChosenTypeHasType(type)" @change="chooseType">{{interpretTitle(type)}}
+        <input class="catalog__options-type-filter" type="checkbox" :value="type" :checked="checkChosenTypeHasType(type)" @change="chooseType">{{$interpreter.interpretProductCategory(type)}}
       </label>
       <h2 class="catalog__options-subtitle">Цена</h2>
       <div class="catalog__options-slider">
@@ -80,20 +80,6 @@ export default {
       this.SET_SECOND_FILTER_PRICE(this.getMaxProductPrice)
       this.SET_FIRST_FILTER_DURATION(this.getMinProductDuration)
       this.SET_SECOND_FILTER_DURATION(this.getMaxProductDuration)
-    },
-    interpretTitle (title) {
-      switch (title) {
-        case 'hair':
-          return 'Парикмахерский зал'
-        case 'cure':
-          return 'Маникюр, педикюр'
-        case 'massage':
-          return 'Массаж'
-        case 'cosmetology':
-          return 'Косметология'
-        default:
-          return title
-      }
     },
     displayDuration (duration) {
       const hours = Math.trunc(duration / 60)

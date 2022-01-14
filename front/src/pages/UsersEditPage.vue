@@ -12,7 +12,7 @@
       <input class="reg-form__field" id="password" type="password" v-model="password" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
       <label class="reg-form__label" for="role">Роль:</label>
       <select class="reg-form__drop-down" id="role" required v-model="roleId">
-        <option v-for="(item, index) in this.getAllRoles" :key="index" v-bind:value="item.id">{{interpretRole(item.role)}}</option>
+        <option v-for="(item, index) in this.getAllRoles" :key="index" v-bind:value="item.id">{{$interpreter.interpretUserRole(item.role)}}</option>
       </select>
       <input class="reg-form__submit" type="submit" value="Добавить учётную запись">
       <p class="reg-form__report">{{(getUserAddReport != null ? getUserAddReport.message : "")}}</p>
@@ -47,17 +47,6 @@ export default {
           this.loadUsersList()
         }
       })
-    },
-    interpretRole (role) {
-      switch (role) {
-        case 'admin':
-          role = 'Администратор'
-          break
-        case 'moder':
-          role = 'Модератор'
-          break
-      }
-      return role
     }
   },
   created () {
