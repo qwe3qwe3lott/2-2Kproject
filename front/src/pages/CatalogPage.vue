@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import CatalogSegment from "@/components/CatalogSegment";
-import CatalogFilter from "@/components/CatalogFilter";
-import {mapGetters} from "vuex";
+import CatalogSegment from '@/components/CatalogSegment'
+import CatalogFilter from '@/components/CatalogFilter'
+import { mapGetters } from 'vuex'
 export default {
-  name: "CatalogPage",
-  components: {CatalogFilter, CatalogSegment},
+  name: 'CatalogPage',
+  components: { CatalogFilter, CatalogSegment },
   computed: {
     ...mapGetters(['getFilteredProductCards', 'getChosenTypes'])
   }

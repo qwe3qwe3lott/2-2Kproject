@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import { mapActions } from 'vuex'
 
 export default {
-  name: "UserCard",
+  name: 'UserCard',
   props: ['user', 'index'],
   methods: {
     ...mapActions(['deleteUser', 'loadUsersList']),
-    delete(){
+    delete () {
       console.log(this.user.id)
       this.deleteUser({
         id: this.user.id
@@ -23,14 +23,14 @@ export default {
         if (status === 200) this.loadUsersList()
       })
     },
-    interpriteRole(role) {
+    interpriteRole (role) {
       switch (role) {
         case 'admin':
-          role = "Администратор";
-          break;
+          role = 'Администратор'
+          break
         case 'moder':
-          role = "Модератор";
-          break;
+          role = 'Модератор'
+          break
       }
       return role
     }

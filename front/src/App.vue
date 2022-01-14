@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import ModalWindow from "@/components/ModalWindow";
+import ModalWindow from '@/components/ModalWindow'
 export default {
   name: 'App',
-  components: {ModalWindow}
+  components: { ModalWindow }
 }
 </script>

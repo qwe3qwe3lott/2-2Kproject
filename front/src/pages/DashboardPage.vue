@@ -16,17 +16,17 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: "DashboardPage",
+  name: 'DashboardPage',
   computed: {
     ...mapGetters(['getProductDashboardData', 'getOrdersDashboardData'])
   },
   methods: {
     ...mapActions(['loadProductsDashboardData', 'loadOrdersDashboardData'])
   },
-  created() {
+  created () {
     this.loadProductsDashboardData()
     this.loadOrdersDashboardData()
   }

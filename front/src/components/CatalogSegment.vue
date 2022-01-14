@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import ProductCard from "@/components/ProductCard";
+import ProductCard from '@/components/ProductCard'
 export default {
-  name: "CatalogSegment",
-  components: {ProductCard},
+  name: 'CatalogSegment',
+  components: { ProductCard },
   props: ['cards', 'title', 'edit'],
   methods: {
-    interpretTitle(title) {
+    interpretTitle (title) {
       switch (title) {
         case 'hair':
           return 'Парикмахерский зал'

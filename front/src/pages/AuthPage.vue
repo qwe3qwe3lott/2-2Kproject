@@ -1,43 +1,54 @@
 <template>
   <section class="auth">
-    <form class="auth__form auth-form" @submit.prevent="submit">
+    <button class="auth__switch-button" @click="isEmployerForm = !isEmployerForm">
+      {{ isEmployerForm ? 'Для клиентов' : 'Для сотрудников' }}
+    </button>
+    <form v-if="!isEmployerForm" class="auth__form auth-form" @submit.prevent="employerSubmit">
+      <label class="auth-form__label" for="email">Электронная почта: <span class="auth-form__label-tip">example@gmail.com</span></label>
+      <input class="auth-form__field" id="email" type="email" v-model.trim="email" required>
+      <input class="auth-form__submit" type="submit" value="Выслать код">
+      <p class="auth-form__report">{{(this.getAuthReport !== null ? this.getAuthReport.message : '')}}</p>
+    </form>
+    <form v-else class="auth__form auth-form" @submit.prevent="employerSubmit">
       <label class="auth-form__label" for="login">Логин: <span class="auth-form__label-tip">буквы и цифры (6-30)</span></label>
-      <input class="auth-form__field" id="login" type="text" v-model="login" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
+      <input class="auth-form__field" id="login" type="text" v-model.trim="login" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
       <label class="auth-form__label" for="password">Пароль: <span class="auth-form__label-tip">буквы и цифры (6-30)</span></label>
-      <input class="auth-form__field" id="password" type="password" v-model="password" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
+      <input class="auth-form__field" id="password" type="password" v-model.trim="password" required pattern="[A-Za-zА-Яа-яЁё0-9]{6,30}">
       <input class="auth-form__submit" type="submit" value="Авторизироваться">
-      <p class="auth-form__report">{{(this.getAuthReport !== null ? this.getAuthReport.message : "")}}</p>
+      <p class="auth-form__report">{{(this.getAuthReport !== null ? this.getAuthReport.message : '')}}</p>
     </form>
   </section>
 </template>
 
 <script>
 import api from '../api'
-import {mapMutations, mapGetters} from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
-  name: "authPage",
-  data() {
+  name: 'authPage',
+  data () {
     return {
-      login: "",
-      password: ""
+      login: '',
+      password: '',
+      email: '',
+      isEmployerForm: false
     }
   },
   computed: mapGetters(['getAuthReport']),
   methods: {
     ...mapMutations(['SET_AUTH_REPORT']),
-    async submit() {
-      api.auth.getToken({ login: this.login, hash: this.$CryptoJS.SHA256(this.password).toString(this.$CryptoJS.enc.Hex)})
+    async employerSubmit () {
+      api.auth.getToken({ login: this.login, hash: this.$CryptoJS.SHA256(this.password).toString(this.$CryptoJS.enc.Hex) })
         .then(res => {
           this.SET_AUTH_REPORT(null)
           localStorage.setItem('token', res.data.token)
           let route = 'main'
           switch (res.data.role) {
-            case "admin":
-              route = 'dashboard';
-              break;
-            case "moder":
-              route = 'orders';
-              break;
+            case 'admin':
+              route = 'dashboard'
+              break
+            case 'moder':
+              route = 'orders'
+              break
           }
           this.$router.push({ name: route })
         })

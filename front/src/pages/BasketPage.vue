@@ -17,6 +17,8 @@
       <input class="basket-form__field" id="fio" type="text" v-model="fio" required pattern="[A-Za-zА-Яа-яЁё]{1,60}\s[A-Za-zА-Яа-яЁё]{1,60}\s[A-Za-zА-Яа-яЁё]{1,60}">
       <label class="basket-form__label" for="phone">Номер телефона: <span class="auth-form__label-tip">(например: 8-800-555-35-35)</span></label>
       <input class="basket-form__field" id="phone" type="tel" v-model="phone" required pattern="8?-?[0-9]{3}-?[0-9]{3}-?[0-9]{2}-?[0-9]{2}">
+      <label class="basket-form__label" for="email">Электронная почта: <span class="auth-form__label-tip">(например: example@gmail.com)</span></label>
+      <input class="basket-form__field" id="email" type="email" v-model="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
       <label class="basket-form__label" for="moment">Время:</label>
       <input class="basket-form__field" id="moment" type="datetime-local" v-model="moment" required>
       <label class="basket-form__label" for="description">Комментарий:</label>
@@ -32,47 +34,49 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from "vuex";
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: "BasketLayout",
+  name: 'BasketLayout',
   computed: {
     ...mapGetters(['getProductsInBasket', 'getProductsInBasketSumPrice', 'getProductsInBasketSumDuration',
       'getProductsInBasketCount', 'getBasketReport', 'getProductsInBasketIds'])
   },
-  data() {
+  data () {
     return {
-      fio: "",
-      phone: "",
-      description: "",
+      fio: '',
+      phone: '',
+      email: '',
+      description: '',
       moment: null
     }
   },
   methods: {
     ...mapMutations(['CLEAR_PRODUCTS_IN_BASKET']),
     ...mapActions(['addOrder']),
-    displayDuration(duration) {
-      let hours = Math.trunc(duration / 60)
-      let minutes = duration % 60
-      return (hours >= 1 ? " " + hours + " ч." : "") + (minutes > 0 ? " " + minutes + " мин." : "")
+    displayDuration (duration) {
+      const hours = Math.trunc(duration / 60)
+      const minutes = duration % 60
+      return (hours >= 1 ? ' ' + hours + ' ч.' : '') + (minutes > 0 ? ' ' + minutes + ' мин.' : '')
     },
-    submit() {
-      let payload = {
+    submit () {
+      const payload = {
         customer: this.fio,
         phone: this.phone,
         moment: this.moment,
         description: this.description,
         price: this.getProductsInBasketSumPrice,
         duration: this.getProductsInBasketSumDuration,
-        productIds: this.getProductsInBasketIds
+        productIds: this.getProductsInBasketIds,
+        email: this.email
       }
       this.addOrder(payload)
-          .then(status => {
-            if (status === 200) {
-              this.CLEAR_PRODUCTS_IN_BASKET()
-              this.$router.push({ name: 'orderSuccess' })
-            }
-          })
+        .then(status => {
+          if (status === 200) {
+            this.CLEAR_PRODUCTS_IN_BASKET()
+            this.$router.push({ name: 'orderSuccess' })
+          }
+        })
     }
   }
 }

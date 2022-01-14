@@ -6,6 +6,8 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.3.1",
+    "axios": "^0.24.0",
     "cookie-parser": "~1.4.4",
     "crypto-js": "^4.0.0",
     "debug": "~2.6.9",
@@ -18,5 +20,8 @@
     "pg": "^8.6.0",
     "pug": "2.0.0-beta11",
     "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "emailjs": "^3.7.0"
   }
 }

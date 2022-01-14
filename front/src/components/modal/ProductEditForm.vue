@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: "ProductEditForm",
+  name: 'ProductEditForm',
   methods: {
     ...mapActions(['addProduct', 'updateProduct', 'loadAllProducts']),
-    submit() {
-      let payload = {
+    submit () {
+      const payload = {
         id: this.id,
         title: this.title,
         description: this.description,
@@ -40,11 +40,11 @@ export default {
       if (payload.id == null) {
         this.addProduct(payload)
           .then(status => {
-          if (status === 200) {
-            this.loadAllProducts()
-            this.$store.commit('productEditForm/SET_SHOW', false)
-          }
-        })
+            if (status === 200) {
+              this.loadAllProducts()
+              this.$store.commit('productEditForm/SET_SHOW', false)
+            }
+          })
       } else {
         this.updateProduct(payload)
           .then(status => {
@@ -55,7 +55,7 @@ export default {
           })
       }
     },
-    interpretProductType(type) {
+    interpretProductType (type) {
       switch (type) {
         case 'hair':
           return 'Парикмахерский зал'
@@ -73,58 +73,58 @@ export default {
   computed: {
     ...mapGetters(['getAllProductTypes']),
     id: {
-      get() {
-        return this.$store.getters["productEditForm/getId"]
+      get () {
+        return this.$store.getters['productEditForm/getId']
       },
-      set(value) {
+      set (value) {
         this.$store.commit('productEditForm/SET_ID', value)
       }
     },
     title: {
-      get() {
-        return this.$store.getters["productEditForm/getTitle"]
+      get () {
+        return this.$store.getters['productEditForm/getTitle']
       },
-      set(value) {
+      set (value) {
         this.$store.commit('productEditForm/SET_TITLE', value)
       }
     },
     description: {
-      get() {
-        return this.$store.getters["productEditForm/getDescription"]
+      get () {
+        return this.$store.getters['productEditForm/getDescription']
       },
-      set(value) {
+      set (value) {
         this.$store.commit('productEditForm/SET_DESCRIPTION', value)
       }
     },
     img: {
-      get() {
-        return this.$store.getters["productEditForm/getImg"]
+      get () {
+        return this.$store.getters['productEditForm/getImg']
       },
-      set(value) {
+      set (value) {
         this.$store.commit('productEditForm/SET_IMG', value)
       }
     },
     type: {
-      get() {
-        return this.$store.getters["productEditForm/getType"]
+      get () {
+        return this.$store.getters['productEditForm/getType']
       },
-      set(value) {
+      set (value) {
         this.$store.commit('productEditForm/SET_TYPE', value)
       }
     },
     price: {
-      get() {
-        return this.$store.getters["productEditForm/getPrice"]
+      get () {
+        return this.$store.getters['productEditForm/getPrice']
       },
-      set(value) {
+      set (value) {
         this.$store.commit('productEditForm/SET_PRICE', value)
       }
     },
     duration: {
-      get() {
-        return this.$store.getters["productEditForm/getDuration"]
+      get () {
+        return this.$store.getters['productEditForm/getDuration']
       },
-      set(value) {
+      set (value) {
         this.$store.commit('productEditForm/SET_DURATION', value)
       }
     }

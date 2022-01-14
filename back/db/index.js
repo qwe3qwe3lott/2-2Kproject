@@ -9,14 +9,15 @@ const Sequelize = require("sequelize");
         dialect: process.env.DATABASE_DIALECT,
         host: process.env.DATABASE_HOST
     });*/
+const isDev = process.env.NODE_ENV === 'development'
 
 const sequelize = new Sequelize(
-    'std_1497_kozlov',
-    'std_1497_kozlov',
+    isDev ? 'kozlov' : 'std_1497_kozlov',
+    isDev ? 'postgres' : 'std_1497_kozlov',
     'qwe3qwe3',
     {
-        dialect: 'mysql',
-        host: 'std-mysql'
+        dialect: isDev ? 'postgresql' : 'mysql',
+        host: isDev ? 'localhost' : 'std-mysql'
     });
 
 const User = require('./User')(sequelize)

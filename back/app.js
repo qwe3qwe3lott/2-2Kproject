@@ -8,6 +8,7 @@ require('dotenv').config()
 const app = express();
 
 app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'development') res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
   next();
@@ -18,13 +19,18 @@ const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/products');
 const ordersRouter = require('./routes/orders');
+const {sequelize} = require("./db");
 
-/*sequelize.sync({alter: true})
-    .then(result => {
-      console.log(result);
-      console.log("DB OK")
-    })
-    .catch(err => console.log(err));*/
+function updateDB () {
+  sequelize.sync({alter: true})
+      .then(result => {
+        console.log(result);
+        console.log("DB OK")
+      })
+      .catch(err => console.log(err));
+}
+
+// updateDB()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,6 +64,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 })
 
-app.listen(3000, function () {
+app.listen(3000, async function () {
   console.log('Сервер запущен')
 })

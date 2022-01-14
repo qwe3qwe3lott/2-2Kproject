@@ -29,43 +29,43 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from "vuex";
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: "CatalogFilter",
+  name: 'CatalogFilter',
   computed: {
     ...mapGetters(['getExistedProductTypes', 'getFilteredProductCards', 'getChosenTypes', 'checkChosenTypeHasType',
       'getMinProductPrice', 'getMaxProductPrice', 'getMinFilterPrice', 'getMaxFilterPrice', 'getMinProductDuration',
       'getMaxProductDuration', 'getMinFilterDuration', 'getMaxFilterDuration', 'getAllProducts']),
     firstFilterPrice: {
-      get() {
-        return this.$store.getters['getFirstFilterPrice']
+      get () {
+        return this.$store.getters.getFirstFilterPrice
       },
-      set(value) {
+      set (value) {
         this.$store.commit('SET_FIRST_FILTER_PRICE', value)
       }
     },
     secondFilterPrice: {
-      get() {
-        return this.$store.getters['getSecondFilterPrice']
+      get () {
+        return this.$store.getters.getSecondFilterPrice
       },
-      set(value) {
+      set (value) {
         this.$store.commit('SET_SECOND_FILTER_PRICE', value)
       }
     },
     firstFilterDuration: {
-      get() {
-        return this.$store.getters['getFirstFilterDuration']
+      get () {
+        return this.$store.getters.getFirstFilterDuration
       },
-      set(value) {
+      set (value) {
         this.$store.commit('SET_FIRST_FILTER_DURATION', value)
       }
     },
     secondFilterDuration: {
-      get() {
-        return this.$store.getters['getSecondFilterDuration']
+      get () {
+        return this.$store.getters.getSecondFilterDuration
       },
-      set(value) {
+      set (value) {
         this.$store.commit('SET_SECOND_FILTER_DURATION', value)
       }
     }
@@ -73,15 +73,15 @@ export default {
   methods: {
     ...mapMutations(['CHANGE_CHOSEN_TYPES', 'SET_CHOSEN_TYPES', 'SET_FIRST_FILTER_PRICE', 'SET_SECOND_FILTER_PRICE',
       'SET_FIRST_FILTER_DURATION', 'SET_SECOND_FILTER_DURATION']),
-    resetOptions() {
+    resetOptions () {
       this.SET_CHOSEN_TYPES(this.getAllProducts.map(item => item.type)
-          .filter((value, index, self) => self.indexOf(value) === index))
+        .filter((value, index, self) => self.indexOf(value) === index))
       this.SET_FIRST_FILTER_PRICE(this.getMinProductPrice)
       this.SET_SECOND_FILTER_PRICE(this.getMaxProductPrice)
       this.SET_FIRST_FILTER_DURATION(this.getMinProductDuration)
       this.SET_SECOND_FILTER_DURATION(this.getMaxProductDuration)
     },
-    interpretTitle(title) {
+    interpretTitle (title) {
       switch (title) {
         case 'hair':
           return 'Парикмахерский зал'
@@ -95,13 +95,13 @@ export default {
           return title
       }
     },
-    displayDuration(duration) {
-      let hours = Math.trunc(duration / 60)
-      let minutes = duration % 60
-      return (hours >= 1 ? " " + hours + " ч." : "") + (minutes > 0 ? " " + minutes + " мин." : "")
+    displayDuration (duration) {
+      const hours = Math.trunc(duration / 60)
+      const minutes = duration % 60
+      return (hours >= 1 ? ' ' + hours + ' ч.' : '') + (minutes > 0 ? ' ' + minutes + ' мин.' : '')
     },
-    chooseType(e) {
-      this.CHANGE_CHOSEN_TYPES({value: e.target.value, checked: e.target.checked})
+    chooseType (e) {
+      this.CHANGE_CHOSEN_TYPES({ value: e.target.value, checked: e.target.checked })
     }
   }
 }

@@ -1,8 +1,9 @@
 <template>
     <section class="admin">
       <article class="admin__panel">
-        <h1 class="admin__title">Администраторная</h1>
-        <button class="admin__exit-button" @click="logout">Выйти</button>
+        <h1 class="admin__panel-title">Администраторная</h1>
+        <button class="admin__panel-button" @click="$router.push({ name: 'orders' })">Перейти в модераторную</button>
+        <button class="admin__panel-button" @click="logout">Выйти</button>
       </article>
       <nav class="admin__nav">
         <button class="admin__nav-button" @click="$router.push({ name: 'usersEdit' })" v-bind:class="{ 'admin__nav-button_selected': check('usersEdit')}">Настройка пользователей</button>
@@ -14,13 +15,13 @@
 
 <script>
 export default {
-  name: "AdminLayout",
+  name: 'AdminLayout',
   methods: {
-    logout() {
+    logout () {
       localStorage.removeItem('token')
       this.$router.push({ name: 'main' })
     },
-    check(name) {
+    check (name) {
       return name === this.$router.currentRoute.name
     }
   }

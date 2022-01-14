@@ -16,43 +16,40 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from "vuex";
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: "ProductCard",
+  name: 'ProductCard',
   props: ['props', 'edit'],
   computed: mapGetters(['checkBasketHasProduct']),
   methods: {
     ...mapActions(['deleteProduct', 'loadAllProducts']),
     ...mapMutations(['ADD_PRODUCT_TO_BASKET', 'DELETE_PRODUCT_FROM_BASKET']),
-    deleteThisProduct() {
+    deleteThisProduct () {
       this.deleteProduct({ id: this.props.id })
-      .then(status => {
-        if (status === 200) {
-          this.loadAllProducts()
-        }
-      })
+        .then(status => {
+          if (status === 200) {
+            this.loadAllProducts()
+          }
+        })
     },
-    addThisProductToBasket() {
-      if (!this.checkBasketHasProduct(this.props.id))
-        this.ADD_PRODUCT_TO_BASKET(this.props)
-      else
-        this.DELETE_PRODUCT_FROM_BASKET(this.props.id)
+    addThisProductToBasket () {
+      if (!this.checkBasketHasProduct(this.props.id)) { this.ADD_PRODUCT_TO_BASKET(this.props) } else { this.DELETE_PRODUCT_FROM_BASKET(this.props.id) }
     },
-    editThisProduct() {
+    editThisProduct () {
       console.log(this.props)
       this.$store.commit('productEditForm/SET', this.props)
       this.$store.commit('productEditForm/SET_SHOW', true)
     },
-    showInfo() {
+    showInfo () {
       this.$store.commit('productInfo/SET_TITLE', this.props.title)
       this.$store.commit('productInfo/SET_DESCRIPTION', this.props.description)
       this.$store.commit('productInfo/SET_SHOW', true)
     },
-    displayDuration(duration) {
-      let hours = Math.trunc(duration / 60)
-      let minutes = duration % 60
-      return (hours >= 1 ? " " + hours + " ч." : "") + (minutes > 0 ? " " + minutes + " мин." : "")
+    displayDuration (duration) {
+      const hours = Math.trunc(duration / 60)
+      const minutes = duration % 60
+      return (hours >= 1 ? ' ' + hours + ' ч.' : '') + (minutes > 0 ? ' ' + minutes + ' мин.' : '')
     }
   }
 }

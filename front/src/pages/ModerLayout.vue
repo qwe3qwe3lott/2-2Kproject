@@ -14,13 +14,13 @@
 
 <script>
 export default {
-  name: "ModerPage",
+  name: 'ModerPage',
   methods: {
-    logout() {
+    logout () {
       localStorage.removeItem('token')
       this.$router.push({ name: 'main' })
     },
-    check(name) {
+    check (name) {
       return name === this.$router.currentRoute.name
     }
   }

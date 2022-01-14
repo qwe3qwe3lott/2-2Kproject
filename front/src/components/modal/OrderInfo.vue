@@ -17,19 +17,19 @@
 
 <script>
 export default {
-  name: "OrderInfo",
+  name: 'OrderInfo',
   computed: {
     info: {
-      get() {
-        return this.$store.getters["orderInfo/getInfo"]
+      get () {
+        return this.$store.getters['orderInfo/getInfo']
       }
     }
   },
   methods: {
-    displayDuration(duration) {
-      let hours = Math.trunc(duration / 60)
-      let minutes = duration % 60
-      return (hours >= 1 ? " " + hours + " ч." : "") + (minutes > 0 ? " " + minutes + " мин." : "")
+    displayDuration (duration) {
+      const hours = Math.trunc(duration / 60)
+      const minutes = duration % 60
+      return (hours >= 1 ? ' ' + hours + ' ч.' : '') + (minutes > 0 ? ' ' + minutes + ' мин.' : '')
     }
   }
 }

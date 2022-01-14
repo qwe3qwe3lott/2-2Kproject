@@ -3,7 +3,7 @@ const orderStatus = require('../db').orderStatus
 const product = require('../db').product
 
 const getAllOrders = async function (req, res) {
-    order.findAll( { attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment'],
+    order.findAll( { attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment', 'email'],
         include: [{ model: orderStatus, attributes: ['id', 'status'], raw: true }, { model: product, through: { attributes: [] } }] } )
         .then(orders => {
             res.status(200).json(orders)
@@ -28,7 +28,7 @@ const getAllStatuses = async function (req, res) {
 //const changeStatus
 
 const addOrder = async function (req, res) {
-    let data = req.body;
+    const data = req.body;
     if (data.customer == null)
         res.status(422).json({ message: 'Не указано ФИО' });
     else if (data.phone == null)
@@ -41,6 +41,8 @@ const addOrder = async function (req, res) {
         res.status(422).json({ message: 'Не указана итоговая продолжительность' });
     else if (data.moment == null)
         res.status(422).json({ message: 'Не указан момент приёма' });
+    else if (data.email == null)
+        res.status(422).json({ message: 'Не указана электронная почта' });
     else if (new Date(data.moment).getTime() < new Date().getTime())
         res.status(422).json({ message: 'Время указано в прошлом' });
     else if (data.productIds == null || data.productIds.length === 0)
@@ -53,7 +55,8 @@ const addOrder = async function (req, res) {
             customer: data.customer,
             statusId: await getStatusId('Untreated'),
             price: data.price,
-            duration: data.duration
+            duration: data.duration,
+            email: data.email
         })
             .then(result => {
                 result.setProducts([...data.productIds])

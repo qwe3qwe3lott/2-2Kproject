@@ -8,23 +8,23 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import CatalogSegment from "../components/CatalogSegment";
+import { mapActions, mapGetters } from 'vuex'
+import CatalogSegment from '../components/CatalogSegment'
 
 export default {
-  name: "CatalogEditPage",
+  name: 'CatalogEditPage',
   components: { CatalogSegment },
   computed: {
     ...mapGetters(['getExistedProductTypes', 'getProductCards'])
   },
   methods: {
     ...mapActions(['loadAllProducts', 'loadAllProductTypes']),
-    createProduct() {
+    createProduct () {
       this.$store.commit('productEditForm/CLEAR')
       this.$store.commit('productEditForm/SET_SHOW', true)
     }
   },
-  created() {
+  created () {
     this.loadAllProducts()
     this.loadAllProductTypes()
   }

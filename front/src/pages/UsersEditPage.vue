@@ -22,20 +22,20 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import UserCard from "../components/UserCard";
+import UserCard from '../components/UserCard'
 export default {
-  name: "UsersEditPage",
-  components: {UserCard},
+  name: 'UsersEditPage',
+  components: { UserCard },
   methods: {
-    logout() {
+    logout () {
       localStorage.removeItem('token')
       this.$router.push({ name: 'main' })
     },
     ...mapActions(['loadUsersList', 'addUser', 'loadAllRoles']),
-    submit() {
-      let passHash = this.$CryptoJS.SHA256(this.password).toString(this.$CryptoJS.enc.Hex)
-      let salt = this.$CryptoJS.lib.WordArray.random(128 / 8).toString(this.$CryptoJS.enc.Hex)
-      let hash = this.$CryptoJS.SHA256(passHash + salt).toString(this.$CryptoJS.enc.Hex)
+    submit () {
+      const passHash = this.$CryptoJS.SHA256(this.password).toString(this.$CryptoJS.enc.Hex)
+      const salt = this.$CryptoJS.lib.WordArray.random(128 / 8).toString(this.$CryptoJS.enc.Hex)
+      const hash = this.$CryptoJS.SHA256(passHash + salt).toString(this.$CryptoJS.enc.Hex)
       this.addUser({
         login: this.login,
         hash,
@@ -43,35 +43,35 @@ export default {
         roleId: this.roleId
       }).then(status => {
         if (status === 200) {
-          this.login = this.password = ""
+          this.login = this.password = ''
           this.loadUsersList()
         }
       })
     },
-    interpretRole(role) {
+    interpretRole (role) {
       switch (role) {
         case 'admin':
-          role = "Администратор";
-          break;
+          role = 'Администратор'
+          break
         case 'moder':
-          role = "Модератор";
-          break;
+          role = 'Модератор'
+          break
       }
       return role
     }
   },
-  created() {
+  created () {
     this.loadUsersList()
     this.loadAllRoles()
   },
   computed: {
     ...mapGetters(['getAllUsers', 'getBackEnd', 'getUserAddReport', 'getAllRoles'])
   },
-  data() {
+  data () {
     return {
-      login: "",
-      password: "",
-      roleId: ""
+      login: '',
+      password: '',
+      roleId: ''
     }
   }
 }
