@@ -20,7 +20,6 @@ export default new Vuex.Store({
     orderStatuses: [],
     backEnd: true,
     userAddReport: null,
-    authReport: null,
     basketReport: null,
     firstFilterPrice: null,
     secondFilterPrice: null,
@@ -84,9 +83,6 @@ export default new Vuex.Store({
     },
     showModalWindow (state) {
       return state.productEditForm.show || state.productInfo.show || state.orderInfo.show
-    },
-    getAuthReport (state) {
-      return state.authReport
     },
     getChosenTypes (state) {
       return state.chosenTypes.sort()
@@ -179,9 +175,6 @@ export default new Vuex.Store({
     },
     CLEAR_PRODUCTS_IN_BASKET (state) {
       state.productsInBasket = []
-    },
-    SET_AUTH_REPORT (state, payload) {
-      state.authReport = payload
     },
     SET_CHOSEN_TYPES (state, payload) {
       state.chosenTypes = payload

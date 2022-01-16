@@ -3,7 +3,7 @@
     <header class="header">
       <button class="header__button header__home-button" @click="$router.push({ name: 'main' })">Салон красоты "Джесси"</button>
       <nav class="header__nav">
-        <button class="header__button" @click="$router.push({ name: 'dashboard' })">личный кабинет</button>
+        <button class="header__button" @click="$router.push({ name: 'auth' })">личный кабинет</button>
       </nav>
     </header>
     <router-view class="root__content"/>

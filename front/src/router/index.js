@@ -1,12 +1,10 @@
 import VueRouter from 'vue-router'
 import api from '../api'
-import AdminLayout from '../pages/AdminLayout'
 import MainPage from '../pages/MainPage'
-import ModerLayout from '../pages/ModerLayout'
 import AuthPage from '../pages/AuthPage'
 import Error404Page from '../pages/Error404Page'
-import HeaderLayout from '../pages/HeaderLayout'
-import MainLayout from '../pages/MainLayout'
+import HeaderLayout from '../layouts/HeaderLayout'
+import MainLayout from '../layouts/MainLayout'
 import CatalogPage from '../pages/CatalogPage'
 import BasketPage from '../pages/BasketPage'
 import CatalogEditPage from '@/pages/CatalogEditPage'
@@ -14,6 +12,8 @@ import OrdersPage from '@/pages/OrdersPage'
 import UsersEditPage from '@/pages/UsersEditPage'
 import DashboardPage from '@/pages/DashboardPage'
 import OrderSuccessPage from '@/pages/OrderSuccessPage'
+import CustomerHistoryPage from '@/pages/CustomerHistoryPage'
+import PersonalRoomLayout from '@/layouts/PersonalRoomLayout'
 
 export default new VueRouter({
   mode: 'history',
@@ -52,21 +52,15 @@ export default new VueRouter({
         },
         {
           path: '/admin',
-          name: 'admin',
-          component: AdminLayout,
-          beforeEnter: (to, from, next) => {
-            console.log(to)
-            console.log(from)
-            api.admin.checkAccess()
-              .then(res => {
-                console.log(res)
-                next()
-              })
-              .catch(err => {
-                console.log(err)
-                console.log(err.response.data)
-                next({ name: 'orders' })
-              })
+          name: 'adminLayout',
+          component: PersonalRoomLayout,
+          props: {
+            isAdmin: true,
+            title: 'Администранорная',
+            navs: [
+              { name: 'usersEdit', label: 'Настройка пользователей' },
+              { name: 'dashboard', label: 'Дашборд' }
+            ]
           },
           children: [
             {
@@ -84,19 +78,13 @@ export default new VueRouter({
         {
           path: '/moder',
           name: 'moderLayout',
-          component: ModerLayout,
-          beforeEnter: (to, from, next) => {
-            console.log(to)
-            console.log(from)
-            api.moder.checkAccess()
-              .then(res => {
-                console.log(res)
-                next()
-              })
-              .catch(err => {
-                console.log(err)
-                next({ name: 'auth' })
-              })
+          component: PersonalRoomLayout,
+          props: {
+            title: 'Модераторная',
+            navs: [
+              { name: 'catalogEdit', label: 'Настройка каталога' },
+              { name: 'orders', label: 'Заказы' }
+            ]
           },
           children: [
             {
@@ -112,9 +100,38 @@ export default new VueRouter({
           ]
         },
         {
+          path: '/customer',
+          name: 'customerLayout',
+          component: PersonalRoomLayout,
+          props: {
+            title: 'Личный кабинет',
+            navs: [
+              { name: 'customerHistory', label: 'История заказов' }
+            ]
+          },
+          children: [
+            {
+              path: 'history',
+              name: 'customerHistory',
+              component: CustomerHistoryPage
+            }
+          ]
+        },
+        {
           path: '/auth',
           name: 'auth',
-          component: AuthPage
+          component: AuthPage,
+          beforeEnter: (to, from, next) => {
+            api.auth.checkRole()
+              .then(res => {
+                console.log(res)
+                next({ name: res.data.name })
+              })
+              .catch(err => {
+                console.log(err)
+                next()
+              })
+          }
         }
       ]
     },

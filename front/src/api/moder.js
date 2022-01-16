@@ -4,9 +4,6 @@ export default function (instance) {
     deleteProduct (payload) {
       return instance.post('products/delete', payload, configs())
     },
-    checkAccess () {
-      return instance.get('auth/checkModer', configs())
-    },
     updateProduct (payload) {
       return instance.post('products/update', payload, configs())
     },

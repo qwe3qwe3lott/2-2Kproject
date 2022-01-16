@@ -7,6 +7,7 @@ require('dotenv').config()
 
 const app = express();
 
+// Для прохождения политики cors
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === 'development') res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT')

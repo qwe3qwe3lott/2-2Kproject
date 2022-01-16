@@ -144,42 +144,6 @@ select {
   }
 }
 
-@mixin user-section {
-  width: 100%;
-  background: $back-color;
-  &__panel {
-    width: 100%;
-    background: $second-back-color;
-    padding: 10px 30px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    border-bottom: rgba($primary-color, 0.5) 2px dashed;
-  }
-  &__title {
-    font-size: 2em;
-  }
-  &__exit-button {
-
-  }
-  &__nav {
-    background: $second-back-color;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 5px;
-  }
-  &__nav-button {
-    padding: 5px;
-    text-transform: uppercase;
-    &_selected {
-      font-weight: bold;
-      text-decoration: underline;
-    }
-  }
-}
-
 @mixin layout {
   display: flex;
   flex-direction: column;
@@ -222,8 +186,44 @@ select {
   }
 }
 
+.personal {
+  @include layout;
+  width: 100%;
+  background: $back-color;
+  &__panel {
+    width: 100%;
+    background: $second-back-color;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: rgba($primary-color, 0.5) 2px dashed;
+  }
+  &__title {
+    font-size: 2em;
+  }
+  &__exit-button {
+
+  }
+  &__nav {
+    background: $second-back-color;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 5px;
+  }
+  &__nav-button {
+    padding: 5px;
+    text-transform: uppercase;
+    &_selected {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}
+
 .admin {
-  @include user-section;
   &__users {
     width: 100%;
     padding: 10px;
@@ -286,10 +286,6 @@ select {
   .reg-form {
     width: 100%;
   }
-}
-
-.moder {
-  @include user-section;
 }
 
 .catalog {
@@ -589,8 +585,23 @@ select {
 }
 
 .client {
-  @include user-section;
   @include layout;
+  &__nav {
+    background: $second-back-color;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 5px;
+  }
+  &__nav-button {
+    padding: 5px;
+    text-transform: uppercase;
+    &_selected {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
 }
 
 .main {

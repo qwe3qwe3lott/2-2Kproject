@@ -5,7 +5,7 @@
       <input class="orders__search-form-field" id="orderIdSearch" type="number" v-model="searchNumber">
     </div>
     <div class="orders__list">
-      <OrderCard v-for="(order, index) in getFilteredOrders" :key="index" :order="order" :order-statuses="getAllOrderStatuses" @changeOrderStatus="changeStatus(order.id, $event)" />
+      <OrderCard v-for="(order, index) in getFilteredOrders" :key="index" :is-edit-mode="true" :order="order" :order-statuses="getAllOrderStatuses" @changeOrderStatus="changeStatus(order.id, $event)" />
     </div>
   </article>
 </template>

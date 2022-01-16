@@ -13,9 +13,6 @@ export default function (instance) {
     getAllRoles () {
       return instance.get('users/allRoles', configs())
     },
-    checkAccess () {
-      return instance.get('auth/checkAdmin', configs())
-    },
     getProductsDashboardData () {
       return instance.get('products/getDashboardData', configs())
     },

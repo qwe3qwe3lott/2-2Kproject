@@ -4,7 +4,8 @@ const controller = require('../controllers/Auth')
 const roleMiddleware = require('../middleware/roleMiddleware')
 
 router.post('/', controller.toAuth)
-router.get('/checkAdmin', roleMiddleware(['admin']), ((req, res) => res.status(200).json({ name: 'orders'})))
-router.get('/checkModer', roleMiddleware(['moder','admin']), ((req, res) => res.status(200).json({ name: 'dashboard'})))
+router.get('/sendEmail', controller.sendEmail)
+router.post('/confirmCustomerCode', controller.confirmCustomerCode)
+router.get('/checkRole', roleMiddleware(['admin', 'moder', 'customer']), controller.checkRole)
 
 module.exports = router

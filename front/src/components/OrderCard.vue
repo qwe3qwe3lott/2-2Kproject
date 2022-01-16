@@ -2,7 +2,7 @@
 <div class="orders__list-element">
   <div class="orders__list-element-header">
     <span class="orders__list-element-id">{{`№${order.id}`}}</span>
-    <select class="orders__list-element-select" :value="order.order_status.id" @change="$emit('changeOrderStatus', $event)">
+    <select v-if="isEditMode" class="orders__list-element-select" :value="order.order_status.id" @change="$emit('changeOrderStatus', $event)">
       <option v-for="(item, index) in orderStatuses" :key="index" :value="item.id">{{$interpreter.interpretOrderStatus(item.status)}}</option>
     </select>
     <button class="orders__list-element-open-button" @click="showBody ^= true"/>
@@ -30,7 +30,8 @@ export default {
   name: 'OrderCard',
   props: {
     order: { type: Object, default: () => {} },
-    orderStatuses: { type: Array, default: () => [] }
+    orderStatuses: { type: Array, default: () => [] },
+    isEditMode: { type: Boolean, default: () => false }
   },
   data () {
     return {
