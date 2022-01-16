@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="orders">
     <div class="orders__list">
       <OrderCard v-for="(order, index) in orders" :key="index" :order="order"/>
     </div>

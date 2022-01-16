@@ -1,11 +1,12 @@
 <template>
 <div class="orders__list-element">
   <div class="orders__list-element-header">
-    <span class="orders__list-element-id">{{`№${order.id}`}}</span>
+    <span class="orders__list-element-prop">{{`№${order.id}`}}</span>
     <select v-if="isEditMode" class="orders__list-element-select" :value="order.order_status.id" @change="$emit('changeOrderStatus', $event)">
       <option v-for="(item, index) in orderStatuses" :key="index" :value="item.id">{{$interpreter.interpretOrderStatus(item.status)}}</option>
     </select>
-    <span v-else>{{$interpreter.interpretOrderStatus(order.order_status.status)}}</span>
+    <span class="orders__list-element-select" v-else>{{$interpreter.interpretOrderStatus(order.order_status.status)}}</span>
+    <span class="orders__list-element-prop">{{$interpreter.interpretDate(order.moment)}}</span>
     <button class="orders__list-element-open-button" @click="showBody ^= true"/>
   </div>
   <div v-if="showBody" class="orders__list-element-body">
