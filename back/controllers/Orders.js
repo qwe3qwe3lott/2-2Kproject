@@ -1,6 +1,7 @@
 const order = require('../db').order
 const orderStatus = require('../db').orderStatus
 const product = require('../db').product
+const errorJSON = require('../util/errorJSON')
 
 const getAllOrders = async function (req, res) {
     order.findAll( { attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment', 'email'],
@@ -10,8 +11,22 @@ const getAllOrders = async function (req, res) {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({ message: 'Неизвестная ошибка' })
+            res.status(500).json(errorJSON())
         })
+}
+
+const getOrdersByEmail = async function (req, res) {
+    const email = req.userId
+    try {
+        const result = await order.findAll({ attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment', 'email'],
+            where: { email },
+            include: [{ model: orderStatus, attributes: ['id', 'status'], raw: true }, { model: product, through: { attributes: [] } }],
+            order: [['id', 'DESC']]})
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json(errorJSON())
+    }
 }
 
 const getAllStatuses = async function (req, res) {
@@ -21,11 +36,9 @@ const getAllStatuses = async function (req, res) {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({ message: 'Неизвестная ошибка' })
+            res.status(500).json(errorJSON())
         })
 }
-
-//const changeStatus
 
 const addOrder = async function (req, res) {
     const data = req.body;
@@ -146,5 +159,6 @@ module.exports = {
     getAllOrders,
     getAllStatuses,
     getDashboardData,
-    updateOrderStatus
+    updateOrderStatus,
+    getOrdersByEmail
 }

@@ -1,11 +1,14 @@
 <template>
   <section>
-    <OrderCard v-for="(order, index) in order" :key="index" :order="order"/>
+    <div class="orders__list">
+      <OrderCard v-for="(order, index) in orders" :key="index" :order="order"/>
+    </div>
   </section>
 </template>
 
 <script>
 import OrderCard from '@/components/OrderCard'
+import api from '@/api'
 export default {
   name: 'CustomerHistoryPage',
   components: { OrderCard },
@@ -14,8 +17,13 @@ export default {
       orders: []
     }
   },
-  mounted () {
-    // Загрузить заказы
+  async mounted () {
+    try {
+      const res = await api.customer.getOrdersByEmail()
+      this.orders = res.data
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 </script>

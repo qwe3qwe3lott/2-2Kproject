@@ -6,11 +6,11 @@ export default {
           case 'Untreated':
             return 'На рассмотрении'
           case 'Planned':
-            return 'Запланировано'
+            return 'Запланирован'
           case 'Denied':
-            return 'Отказано'
+            return 'Отказан'
           case 'Done':
-            return 'Выполнено'
+            return 'Выполнен'
           default:
             return status
         }
@@ -38,6 +38,15 @@ export default {
           default:
             return role
         }
+      },
+      interpretDuration (duration) {
+        const hours = Math.trunc(duration / 60)
+        const minutes = duration % 60
+        return (hours >= 1 ? ' ' + hours + ' ч.' : '') + (minutes > 0 ? ' ' + minutes + ' мин.' : '')
+      },
+      interpretDate (dateString) {
+        const date = new Date(dateString)
+        return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
       }
     }
   }

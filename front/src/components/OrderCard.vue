@@ -5,6 +5,7 @@
     <select v-if="isEditMode" class="orders__list-element-select" :value="order.order_status.id" @change="$emit('changeOrderStatus', $event)">
       <option v-for="(item, index) in orderStatuses" :key="index" :value="item.id">{{$interpreter.interpretOrderStatus(item.status)}}</option>
     </select>
+    <span v-else>{{$interpreter.interpretOrderStatus(order.order_status.status)}}</span>
     <button class="orders__list-element-open-button" @click="showBody ^= true"/>
   </div>
   <div v-if="showBody" class="orders__list-element-body">
@@ -13,8 +14,8 @@
     <p class="orders__list-element-body-prop">Электронная почта: {{order.email}}</p>
     <hr class="orders__list-element-body-line">
     <p class="orders__list-element-body-prop">Сумма: {{order.price}} руб.</p>
-    <p class="orders__list-element-body-prop">Продолжительность: {{order.duration}}</p>
-    <p class="orders__list-element-body-prop">Время приёма: {{order.moment}}</p>
+    <p class="orders__list-element-body-prop">Продолжительность: {{$interpreter.interpretDuration(order.duration)}}</p>
+    <p class="orders__list-element-body-prop">Время приёма: {{$interpreter.interpretDate(order.moment)}}</p>
     <hr class="orders__list-element-body-line">
     <ul class="orders__list-element-body-list">
       <li class="orders__list-element-body-list-element" v-for="(product, index) in order.products" :key="index">{{product.title}}</li>

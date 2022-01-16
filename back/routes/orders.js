@@ -8,5 +8,6 @@ router.get('/allStatuses', roleMiddleware(['admin', 'moder']), controller.getAll
 router.post('/add', controller.addOrder)
 router.get('/getDashboardData', roleMiddleware(['admin']), controller.getDashboardData)
 router.post('/updateStatus', roleMiddleware(['admin', 'moder']), controller.updateOrderStatus)
+router.get('/getOrdersByEmail', roleMiddleware(['customer']), controller.getOrdersByEmail)
 
 module.exports = router

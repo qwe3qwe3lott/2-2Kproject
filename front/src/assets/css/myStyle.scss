@@ -8,6 +8,7 @@
 html {
   height: 100%;
   font-size: 20px;
+  width: 100vw;
 }
 body {
   color: $text-color;
@@ -522,7 +523,7 @@ select {
   place-items: center;
   background-color: $modal-color;
   &__window {
-    max-width: 90vw;
+    max-width: 90%;
     background-color: $second-back-color;
     padding: 0.3em;
     border-radius: 0.5em;
@@ -576,12 +577,10 @@ select {
 
 .product-info {
   @include form;
-  width: 25em;
 }
 
 .product-edit-form {
   @include form;
-  width: 25em;
 }
 
 .client {
@@ -699,7 +698,7 @@ select {
     width: 100%;
   }
   &__list {
-    max-width: 90vw;
+    max-width: 90%;
     display: grid;
     grid-gap: 1em;
     place-items: center;

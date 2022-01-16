@@ -4,7 +4,7 @@
     <div class="product-card__info">
       <h3 class="product-card__title">{{ props.title }}</h3>
       <p class="product-card__prop">Цена: {{props.price}} руб.</p>
-      <p class="product-card__prop">Продолжительность:{{displayDuration(this.props.duration)}}</p>
+      <p class="product-card__prop">Продолжительность:{{$interpreter.interpretDuration(this.props.duration)}}</p>
       <div class="product-card__buttons">
         <button @click="$emit('chooseDescription', props.description)" class="product-card__button" v-if="!edit">Описание</button>
         <button @click="addThisProductToBasket" class="product-card__button" :class="{'product-card__button_selected': this.checkBasketHasProduct(props.id)}" v-if="!edit">{{!this.checkBasketHasProduct(props.id) ? "В корзину" : "В корзине"}}</button>
@@ -17,7 +17,6 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-
 export default {
   name: 'ProductCard',
   props: ['props', 'edit'],
@@ -39,11 +38,6 @@ export default {
     editThisProduct () {
       this.$store.commit('productEditForm/SET', this.props)
       this.$emit('edit', true)
-    },
-    displayDuration (duration) {
-      const hours = Math.trunc(duration / 60)
-      const minutes = duration % 60
-      return (hours >= 1 ? ' ' + hours + ' ч.' : '') + (minutes > 0 ? ' ' + minutes + ' мин.' : '')
     }
   }
 }

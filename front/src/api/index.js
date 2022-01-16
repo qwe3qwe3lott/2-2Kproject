@@ -4,6 +4,7 @@ import adminModule from './admin'
 import moderModule from './moder'
 import authModule from './auth'
 import userModule from './user'
+import customerModule from './customer'
 
 export const configs = () => {
   return {
@@ -17,5 +18,6 @@ export default {
   admin: adminModule(instance),
   moder: moderModule(instance),
   auth: authModule(instance),
-  user: userModule(instance)
+  user: userModule(instance),
+  customer: customerModule(instance)
 }
