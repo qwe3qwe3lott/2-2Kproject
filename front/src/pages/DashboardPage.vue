@@ -1,5 +1,8 @@
 <template>
   <article class="dashboard">
+    <p class="dashboard__alert">
+      Не хватает ширины экрана
+    </p>
     <div class="dashboard__container dashboard__diagram-container print-void">
       <h2 class="dashboard__subtitle">Соотношение категорий в каталоге</h2>
       <la-polar class="dashboard__pie" fillContainer  :data="this.getProductDashboardData" :width="500">

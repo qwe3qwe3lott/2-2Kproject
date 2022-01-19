@@ -542,6 +542,9 @@ select {
   align-items: center;
   justify-content: center;
   padding: 1em;
+  &__alert {
+    display: none;
+  }
   &__container {
     width: 500px;
   }
@@ -560,6 +563,9 @@ select {
   .dashboard {
     &__diagram-container {
       display: none;
+    }
+    &__alert {
+      display: block;
     }
   }
 }
@@ -975,6 +981,15 @@ select {
     }
     &__pie {
       font-size: 0.5em;
+    }
+  }
+
+  .personal {
+    &__panel {
+      display: none;
+    }
+    &__nav {
+      display: none;
     }
   }
 }

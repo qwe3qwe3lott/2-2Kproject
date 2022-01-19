@@ -6,7 +6,7 @@ const errorJSON = require('../util/errorJSON')
 const getAllOrders = async function (req, res) {
     order.findAll( { attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment', 'email'],
         include: [{ model: orderStatus, attributes: ['id', 'status'], raw: true }, { model: product, through: { attributes: [] } }],
-        order: [['moment', 'DESC']]})
+        order: [['moment', 'ASC']]})
         .then(orders => {
             res.status(200).json(orders)
         })
@@ -22,7 +22,7 @@ const getOrdersByEmail = async function (req, res) {
         const result = await order.findAll({ attributes: ['id', 'phone', 'description', 'customer', 'duration', 'price', 'moment', 'email'],
             where: { email },
             include: [{ model: orderStatus, attributes: ['id', 'status'], raw: true }, { model: product, through: { attributes: [] } }],
-            order: [['moment', 'DESC']]})
+            order: [['moment', 'ASC']]})
         res.status(200).json(result)
     } catch (err) {
         console.log(err)
